@@ -65,7 +65,7 @@ res_tras_crimes(PG_FUNCTION_ARGS)
         newsample = newsample + 1;
         //if(!st) {
         int [100]r = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-        st->reservoir = (ArrayType) r;
+        st->reservoir =  r;
         st->poscnt = 1;
         st->reservoir_size = 100;
         //}
@@ -77,6 +77,6 @@ Datum
 finalize_trans_crimes(PG_FUNCTION_ARGS)
 {
 
-		struct state_c st = (state_c) PG_GETARG_DATUM(0);
-		PG_RETURN_ARRAYTYPE_P(st.reservoir);
+		struct state_c *st = (state_c *) PG_GETARG_POINTER(0);
+		PG_RETURN_ARRAYTYPE_P(st->reservoir);
 }
