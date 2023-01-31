@@ -36,7 +36,7 @@ PG_MODULE_MAGIC;
 
 typedef struct state_c
 {
-		int [100] reservoir;
+	ArrayType reservoir;
         int32 poscnt;
         int32 reservoir_size; 
 } state_c;
@@ -65,7 +65,7 @@ res_tras_crimes(PG_FUNCTION_ARGS)
         newsample = newsample + 1;
         //if(!st) {
         int [100]r = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-        st->reservoir = r;
+        st->reservoir = (ArrayType) r;
         st->poscnt = 1;
         st->reservoir_size = 100;
         //}
