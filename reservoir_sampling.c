@@ -65,9 +65,9 @@ res_tras_crimes(PG_FUNCTION_ARGS)
         newsample = newsample + 1;
         //if(!st) {
         int r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-        st->reservoir = r;
         st->poscnt = 1;
         st->reservoir_size = 100;
+        st->reservoir = r;
         //}
         PG_RETURN_DATUM((Datum) st);
 }
