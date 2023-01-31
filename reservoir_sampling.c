@@ -58,7 +58,7 @@ Datum
 res_tras_crimes(PG_FUNCTION_ARGS)
 {
 
-		struct state_c st = PG_GETARG_DATUM(0);
+		struct state_c st = (state_c)PG_GETARG_DATUM(0);
         int64 newsample = PG_GETARG_INT64(1);
         newsample = newsample + 1;
         if(!st) {
@@ -67,7 +67,7 @@ res_tras_crimes(PG_FUNCTION_ARGS)
         	st.poscnt = 1;
         	st.reservoir_size = 100;
         }
-        PG_RETURN_DATUM(st);
+        PG_RETURN_DATUM((Datum) st);
 }
 
 PG_FUNCTION_INFO_V1(finalize_trans_crimes);
@@ -75,6 +75,6 @@ Datum
 finalize_trans_crimes(PG_FUNCTION_ARGS)
 {
 
-		struct state_c st =  PG_GETARG_DATUM(0);
-     	PG_RETURN_DATUM(st.reservoir);
+		struct state_c st = (state_c) PG_GETARG_DATUM(0);
+     	PG_RETURN_DATUM((Datum)st.reservoir);
 }
