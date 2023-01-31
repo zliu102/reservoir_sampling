@@ -59,17 +59,17 @@ res_tras_crimes(PG_FUNCTION_ARGS)
 {
 
 		//state_c *d1 = malloc(sizeof(state_c));
-		struct state_c st;
-		st = (state_c *)PG_GETARG_DATUM(0);
-//struct state_c *st = (state_c *)PG_GETARG_POINTER(0);
+		//struct state_c st;
+	//	st = (state_c *)PG_GETARG_DATUM(0);
+		struct state_c *st = (state_c *)PG_GETARG_POINTER(0);
         int64 newsample = PG_GETARG_INT64(1);
         newsample = newsample + 1;
-        //if(!st) {
-        int r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-        st->poscnt = 1;
-        st->reservoir_size = 100;
-        st->reservoir = r;
-        //}
+        if(st == NULL) {
+        	int r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+        	st->poscnt = 1;
+        	st->reservoir_size = 100;
+        	st->reservoir = r;
+        }
         PG_RETURN_DATUM((Datum) st);
 }
 
