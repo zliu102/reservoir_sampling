@@ -76,5 +76,5 @@ finalize_trans_crimes(PG_FUNCTION_ARGS)
 {
 
 		struct state_c st = (state_c) PG_GETARG_DATUM(0);
-     	PG_RETURN_DATUM((Datum)st.reservoir);
+		PG_RETURN_ARRAYTYPE_P(st.reservoir);
 }
