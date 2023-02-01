@@ -72,7 +72,8 @@ res_tras_crimes(PG_FUNCTION_ARGS)
         	st->reservoir = a;
         }
         if(st->poscnt <= st->reservoir_size){
-        	*(st->reservoir+poscnt-1) = newsample;
+        	int32 p = st->poscnt;
+        	*(st->reservoir+p-1) = newsample;
         	st->poscnt ++;
 
         }else{
