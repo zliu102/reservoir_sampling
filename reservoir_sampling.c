@@ -36,7 +36,7 @@ PG_MODULE_MAGIC;
 
 typedef struct state_c
 {
-		int64 *reservoir;
+		int32 *reservoir;
         int32 poscnt;
         int32 reservoir_size; 
 } state_c;
