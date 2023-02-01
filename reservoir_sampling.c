@@ -36,7 +36,7 @@ PG_MODULE_MAGIC;
 
 typedef struct state_c
 {
-		int32 *reservoir;
+		int64 *reservoir;
         int32 poscnt;
         int32 reservoir_size; 
 } state_c;
@@ -71,7 +71,18 @@ res_tras_crimes(PG_FUNCTION_ARGS)
         	st->reservoir_size = 100;
         	st->reservoir = a;
         }
-        PG_RETURN_DATUM((Datum) st);
+        if(st->poscnt <= st->reservoir_size){
+        	*(st->reservoir+poscnt-1) = newsample;
+        	st->poscnt ++;
+
+        }else{
+        	int32 pos = 5;
+        	if(pos <= st->reservoir_size){
+        		*(st->reservoir+pos-1) = newsample;
+        	}
+        	st->poscnt ++;
+        }
+        PG_RETURN_POINTER(st);
 }
 
 PG_FUNCTION_INFO_V1(finalize_trans_crimes);
