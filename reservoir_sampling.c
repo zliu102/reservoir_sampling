@@ -63,7 +63,6 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
 	//	st = (state_c *)PG_GETARG_DATUM(0);
 		struct state_c *st = (state_c *)PG_GETARG_POINTER(0);
         int64 newsample = PG_GETARG_INT64(1);
-        newsample = newsample + 1;
         if(st == NULL) {
         	int64 r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         	int64 *a = r;
@@ -108,10 +107,6 @@ res_tras_crimes2_c(PG_FUNCTION_ARGS)
         int64 newsample = PG_GETARG_INT64(1);
         memset(&st, 0, sizeof(struct state_c));
         if (memcmp(&st, &st, sizeof(struct state_c)) == 0) {
-            printf("s1 is empty\n");
-        }
-        newsample = newsample + 1;
-        if(st == NULL) {
         	int64 r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         	int64 *a = r;
         	st.poscnt = 1;
