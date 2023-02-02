@@ -95,8 +95,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 		PG_RETURN_ARRAYTYPE_P(st->reservoir);
 }
 
-/*
-PG_FUNCTION_INFO_V1(res_tras_crimes);
+
+PG_FUNCTION_INFO_V1(res_tras_crimes2);
 Datum
 res_tras_crimes2_c(PG_FUNCTION_ARGS)
 {
@@ -129,7 +129,7 @@ res_tras_crimes2_c(PG_FUNCTION_ARGS)
         PG_RETURN_DATUM(st);
 }
 
-PG_FUNCTION_INFO_V1(finalize_trans_crimes);
+PG_FUNCTION_INFO_V1(finalize_trans_crimes2);
 Datum
 finalize_trans_crimes2_c(PG_FUNCTION_ARGS)
 {
@@ -137,4 +137,4 @@ finalize_trans_crimes2_c(PG_FUNCTION_ARGS)
 		struct state_c st = (state_c) PG_GETARG_DATUM(0);
 		PG_RETURN_DATUM(st.reservoir);
 }
-*/
+
