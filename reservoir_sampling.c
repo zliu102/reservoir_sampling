@@ -62,7 +62,8 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
 		//struct state_c st;
 	//	st = (state_c *)PG_GETARG_DATUM(0);
 		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
-		char data[] = addr->vl_dat;
+		char data[32];
+		memcpy(data,addr->vl_dat,32);
 		struct state_c *st = (state_c *) data;
         int64 newsample = PG_GETARG_INT64(2);
         if(st == NULL) {
