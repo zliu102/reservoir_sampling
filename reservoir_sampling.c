@@ -61,8 +61,10 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
 		//state_c *d1 = malloc(sizeof(state_c));
 		//struct state_c st;
 	//	st = (state_c *)PG_GETARG_DATUM(0);
-		struct state_c *st = (state_c *)PG_GETARG_POINTER(0);
-        int64 newsample = PG_GETARG_INT64(1);
+		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
+
+		struct state_c *st = (state_c *)PG_GETARG_POINTER(1);
+        int64 newsample = PG_GETARG_INT64(2);
         if(st == NULL) {
         	int64 r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         	int64 *a = r;
@@ -82,7 +84,7 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
         	}
         	st->poscnt ++;
         }
-        PG_RETURN_POINTER(st);
+        PG_RETURN_BYTEA_P(addr);
 }
 
 PG_FUNCTION_INFO_V1(finalize_trans_crimes);
@@ -95,6 +97,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 }
 
 
+/*
 PG_FUNCTION_INFO_V1(res_tras_crimes2);
 Datum
 res_tras_crimes2_c(PG_FUNCTION_ARGS)
@@ -105,6 +108,7 @@ res_tras_crimes2_c(PG_FUNCTION_ARGS)
 	//	st = (state_c *)PG_GETARG_DATUM(0);
 		struct state_c st = (state_c )PG_GETARG_DATUM(0);
         int64 newsample = PG_GETARG_INT64(1);
+
         memset(&st, 0, sizeof(struct state_c));
         if (memcmp(&st, &st, sizeof(struct state_c)) == 0) {
         	int64 r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
@@ -136,4 +140,4 @@ finalize_trans_crimes2_c(PG_FUNCTION_ARGS)
 		struct state_c st = (state_c) PG_GETARG_DATUM(0);
 		PG_RETURN_DATUM(st.reservoir);
 }
-
+*/
