@@ -84,7 +84,7 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
                 memcpy(addr->vl_dat,ptraddr,32);
         }
         //todo
-        char ptraddr[]; 
+        char ptraddr[32]; 
         memcpy(ptraddr,addr->vl_dat,32);
         //int a = char;
         state_c *s = palloc0 (sizeof(state_c)); //test
