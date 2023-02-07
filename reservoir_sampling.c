@@ -31,6 +31,10 @@
 #include "utils/selfuncs.h"
 #include "utils/typcache.h"
 #include "utils/varbit.h"
+#include "postgres.h"
+#include <limits.h>
+#include "catalog/pg_type.h"
+#include "_int.h"
 
 PG_MODULE_MAGIC;
 
