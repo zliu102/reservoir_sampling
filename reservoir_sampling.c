@@ -52,7 +52,7 @@ add_ab(PG_FUNCTION_ARGS)
         PG_RETURN_INT32(arg_a + arg_b);
 }
 
-
+/*
 PG_FUNCTION_INFO_V1(res_tras_crimes);
 Datum
 res_tras_crimes_c(PG_FUNCTION_ARGS)
@@ -65,9 +65,9 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
 		int64 newsample = PG_GETARG_INT64(1);
 		state_c *st = palloc0 (sizeof(state_c));
 		char data[32];
+
 		memcpy(data,addr->vl_dat,32);
 		st = (state_c *)((int) data);
-
         if(st == NULL) {
         	//int64 r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};、、
         	//int64 *a = r;
@@ -99,9 +99,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 		struct state_c *st = (state_c *) PG_GETARG_POINTER(0);
 		PG_RETURN_ARRAYTYPE_P(st->reservoir);
 }
+*/
 
-
-/*
 PG_FUNCTION_INFO_V1(res_tras_crimes2);
 Datum
 res_tras_crimes2_c(PG_FUNCTION_ARGS)
@@ -110,30 +109,37 @@ res_tras_crimes2_c(PG_FUNCTION_ARGS)
 		//state_c *d1 = malloc(sizeof(state_c));
 		//struct state_c st;
 	//	st = (state_c *)PG_GETARG_DATUM(0);
-		struct state_c st = (state_c )PG_GETARG_DATUM(0);
+        struct state_c *st = (struct state_c *)PG_GETARG_DATUM(0);
         int64 newsample = PG_GETARG_INT64(1);
 
-        memset(&st, 0, sizeof(struct state_c));
+        /*memset(&st, 0, sizeof(struct state_c));
         if (memcmp(&st, &st, sizeof(struct state_c)) == 0) {
         	int64 r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         	int64 *a = r;
         	st.poscnt = 1;
         	st.reservoir_size = 100;
         	st.reservoir = a;
+        }*/
+        if (st == NULL) {
+                int64 r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+                int64 *a = r;
+                st->poscnt = 1;
+                st->reservoir_size = 100;
+                st->reservoir = a;
         }
-        if(st.poscnt <= st.reservoir_size){
-        	int32 p = st.poscnt;
-        	*(st.reservoir+p-1) = newsample;
-        	st.poscnt ++;
+        if(st->poscnt <= st->reservoir_size){
+        	int32 p = st->poscnt;
+        	*(st->reservoir+p-1) = newsample;
+        	st->poscnt ++;
 
         }else{
         	int32 pos = rand() % st.poscnt ; //0 - postcnt -1
-        	if(pos < st.reservoir_size){
-        		*(st.reservoir+pos) = newsample;
+        	if(pos < st->reservoir_size){
+        		*(st->reservoir+pos) = newsample;
         	}
-        	st.poscnt ++;
+        	st->poscnt ++;
         }
-        PG_RETURN_DATUM(st);
+        PG_RETURN_DATUM((DATUM)st);
 }
 
 PG_FUNCTION_INFO_V1(finalize_trans_crimes2);
@@ -144,4 +150,4 @@ finalize_trans_crimes2_c(PG_FUNCTION_ARGS)
 		struct state_c st = (state_c) PG_GETARG_DATUM(0);
 		PG_RETURN_DATUM(st.reservoir);
 }
-*/
+
