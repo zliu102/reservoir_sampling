@@ -36,7 +36,7 @@ PG_MODULE_MAGIC;
 
 typedef struct state_c
 {
-		int64 *reservoir;
+	int64 *reservoir;
         int32 poscnt;
         int32 reservoir_size; 
 } state_c;
@@ -109,7 +109,7 @@ res_tras_crimes2_c(PG_FUNCTION_ARGS)
 		//state_c *d1 = malloc(sizeof(state_c));
 		//struct state_c st;
 	//	st = (state_c *)PG_GETARG_DATUM(0);
-        struct state_c *st = (struct state_c *)PG_GETARG_DATUM(0);
+        state_c *st = (state_c *)PG_GETARG_DATUM(0);
         int64 newsample = PG_GETARG_INT64(1);
 
         /*memset(&st, 0, sizeof(struct state_c));
@@ -147,7 +147,7 @@ Datum
 finalize_trans_crimes2_c(PG_FUNCTION_ARGS)
 {
 
-		struct state_c *st = (struct state_c *) PG_GETARG_DATUM(0);
-		PG_RETURN_DATUM(st->reservoir);
+	state_c *st = (state_c *) PG_GETARG_DATUM(0);
+	PG_RETURN_ARRAYTYPE_P(st->reservoir);
 }
 
