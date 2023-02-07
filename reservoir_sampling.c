@@ -72,16 +72,20 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = new_intArrayType(100);
                 addr = palloc0 (sizeof(bytea));
-        	char ptraddr[] = "1222";
+        	//todo
+                //char ptraddr[32] = inttochar(st);
+                char ptraddr[] = "1222";
+
         	st0->poscnt = 1;
         	st0->reservoir_size = 100;
         	st0->reservoir = a;
-                //todo
-                //char ptraddr[32] = inttochar(st);
+                
                 memcpy(addr->vl_dat,ptraddr,32);
         }
-        int a = 0x7ffd15ebe8b0;
-        state_c *s = (state_c *) a;
+        //todo
+        char ptraddr[] = VARDATA_ANY(addr);
+        //int a = char;
+        state_c *s = palloc0 (sizeof(state_c)); //test
         if(s->poscnt <= s->reservoir_size){
         	int32 p = s->poscnt;
                 int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
@@ -104,7 +108,9 @@ Datum
 finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 {
 
-		struct state_c *st = (state_c *) PG_GETARG_POINTER(0);
+		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
+               // char ptraddr[] = VARDATA_ANY(addr);
+                state_c *st = palloc0 (sizeof(state_c)); //test
 		PG_RETURN_ARRAYTYPE_P(st->reservoir);
 }
 
