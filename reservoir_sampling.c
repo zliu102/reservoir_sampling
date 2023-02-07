@@ -139,7 +139,7 @@ res_tras_crimes2_c(PG_FUNCTION_ARGS)
         	}
         	st->poscnt ++;
         }
-        PG_RETURN_DATUM((DATUM)st);
+        PG_RETURN_DATUM((Datum) st);
 }
 
 PG_FUNCTION_INFO_V1(finalize_trans_crimes2);
