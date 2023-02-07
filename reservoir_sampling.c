@@ -66,7 +66,7 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
 		
         if(addr == NULL) {
                 state_c *st0 = palloc0 (sizeof(state_c));
-                ArrayType *a = palloc0 (sizeof(ArrayType));
+                ArrayType *a = new_intArrayType(100);
                 addr = palloc0 (sizeof(bytea));
         	char ptraddr[] = "1222";
         	st0->poscnt = 1;
