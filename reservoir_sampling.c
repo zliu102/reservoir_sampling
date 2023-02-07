@@ -112,7 +112,7 @@ res_tras_crimes2_c(PG_FUNCTION_ARGS)
         state_c *st = (state_c *)PG_GETARG_DATUM(0);
         int64 newsample = PG_GETARG_INT64(1);
 
-        /*memset(&st, 0, sizeof(struct state_c));
+        memset(&st, 0, sizeof(struct state_c));
         if (memcmp(&st, &st, sizeof(struct state_c)) == 0) {
         	int64 r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
         	int64 *a = r;
