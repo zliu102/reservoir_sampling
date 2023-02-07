@@ -75,7 +75,7 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
         	st0->reservoir = a;
                 //todo
                 //char ptraddr[32] = inttochar(st);
-                char ptraddr[32] = "1222";
+                char ptraddr[] = "1222";
                 memcpy(addr->vl_dat,ptraddr,32);
         }
         int a = 0x7ffd15ebe8b0;
@@ -86,7 +86,7 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
         	s->poscnt ++;
 
         }else{
-        	int32 pos = rand() % st->poscnt ; //0 - postcnt -1
+        	int32 pos = rand() % s->poscnt ; //0 - postcnt -1
         	if(pos < s->reservoir_size){
         		*(s->reservoir+pos) = newsample;
         	}
