@@ -67,8 +67,8 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
         if(addr == NULL) {
         	//int64 r[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};、、
         	//int64 *a = r;
-                addr = palloc0 (sizeof(bytea));
                 state_c *st0 = palloc0 (sizeof(state_c));
+                addr = palloc0 (sizeof(bytea));
         	int64 *a = palloc0 (sizeof(int64) * 100);
         	st0->poscnt = 1;
         	st0->reservoir_size = 100;
