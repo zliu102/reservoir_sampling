@@ -133,7 +133,7 @@ res_tras_crimes2_c(PG_FUNCTION_ARGS)
         	st->poscnt ++;
 
         }else{
-        	int32 pos = rand() % st.poscnt ; //0 - postcnt -1
+        	int32 pos = rand() % st->poscnt ; //0 - postcnt -1
         	if(pos < st->reservoir_size){
         		*(st->reservoir+pos) = newsample;
         	}
