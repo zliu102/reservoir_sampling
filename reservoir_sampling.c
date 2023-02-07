@@ -84,13 +84,15 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
         state_c *s = (state_c *) a;
         if(s->poscnt <= s->reservoir_size){
         	int32 p = s->poscnt;
-        	*(s->reservoir+p-1) = newsample;
+                int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
+                dr[p-1] = newsample;
         	s->poscnt ++;
 
         }else{
         	int32 pos = rand() % s->poscnt ; //0 - postcnt -1
         	if(pos < s->reservoir_size){
-        		*(s->reservoir+pos) = newsample;
+                        int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
+                        dr[pos] = newsample;
         	}
         	s->poscnt ++;
         }
