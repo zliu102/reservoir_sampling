@@ -69,21 +69,23 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
 	int64 newsample = PG_GETARG_INT64(1);
 		
         if(addr == NULL) {
+
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = new_intArrayType(100);
                 addr = palloc0 (sizeof(bytea));
         	//todo
                 //char ptraddr[32] = inttochar(st);
-                char ptraddr[] = "1222";
+                
 
         	st0->poscnt = 1;
         	st0->reservoir_size = 100;
         	st0->reservoir = a;
-                
+                char ptraddr[] = "1222";
                 memcpy(addr->vl_dat,ptraddr,32);
         }
         //todo
-        char ptraddr[] = VARDATA_ANY(addr);
+        char ptraddr[32];
+        ptraddr = VARDATA_ANY(addr);
         //int a = char;
         state_c *s = palloc0 (sizeof(state_c)); //test
         if(s->poscnt <= s->reservoir_size){
