@@ -34,7 +34,7 @@
 #include "postgres.h"
 #include <limits.h>
 #include "catalog/pg_type.h"
-#include "_int.h"
+#include "/home/oracle/datasets/postgres11ps/postgres-pbds/contrib/intarray/_int.h"
 
 PG_MODULE_MAGIC;
 
