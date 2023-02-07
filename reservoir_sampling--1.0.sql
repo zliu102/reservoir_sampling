@@ -2,7 +2,7 @@ create function add_lzy(int,int)
         returns int
 as 'MODULE_PATHNAME','add_ab'
 language C strict;
-/*
+
 CREATE FUNCTION res_tras_crimes_c(state_c, int64)
         RETURNS state_c
         AS 'MODULE_PATHNAME', 'res_tras_crimes'
@@ -23,7 +23,6 @@ CREATE AGGREGATE reservoir_sampling_c(int64)
         stype = state_c,
         FINALFUNC = finalize_trans_crimes,
 );
-*/
 
 /*
 CREATE FUNCTION res_tras_crimes2_c(Datum, int64)
