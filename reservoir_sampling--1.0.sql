@@ -3,14 +3,14 @@ create function add_lzy(int,int)
 as 'MODULE_PATHNAME','add_ab'
 language C strict;
 
-CREATE FUNCTION res_tras_crimes_c(state_c, int64)
-        RETURNS state_c
+CREATE FUNCTION res_tras_crimes_c(bytea, int64)
+        RETURNS bytea
         AS 'MODULE_PATHNAME', 'res_tras_crimes'
         LANGUAGE C
         IMMUTABLE 
         PARALLEL SAFE;
 
-CREATE FUNCTION finalize_trans_crimes_c(state_c)
+CREATE FUNCTION finalize_trans_crimes_c(bytea)
         RETURNS ArrayType
         AS 'MODULE_PATHNAME'
         LANGUAGE C
