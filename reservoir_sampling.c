@@ -80,10 +80,10 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
         	st0->reservoir_size = 100;
         	st0->reservoir = a;
                 //todo
-                //char ptraddr[32] = inttochar(st);
-        
-                char ptraddr[] = "1222";
-                memcpy(addr->vl_dat,ptraddr,32);
+                
+                int len = sizeof(struct state_c);
+                //char ptraddr[] = "1222";
+                memcpy(addr->vl_dat,st0,len);
         }
         //todo
         char ptraddr[32]; 
