@@ -45,7 +45,7 @@ typedef struct state_c
         int32 reservoir_size; 
 } state_c;
 
-static Datum charToInt(const char *addr);
+//static Datum charToInt(const char *addr);
 
 PG_FUNCTION_INFO_V1(add_ab);
 Datum
@@ -119,7 +119,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 		PG_RETURN_ARRAYTYPE_P(st->reservoir);
 }
 
-static Datum
+/*static Datum
 charToInt(const char *str)
 {
     int result = 0;
@@ -142,7 +142,7 @@ charToInt(const char *str)
     return result;
 }
 
-/*
+
 PG_FUNCTION_INFO_V1(res_tras_crimes2);
 Datum
 res_tras_crimes2_c(PG_FUNCTION_ARGS)
