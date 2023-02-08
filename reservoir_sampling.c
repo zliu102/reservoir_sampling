@@ -45,6 +45,8 @@ typedef struct state_c
         int32 reservoir_size; 
 } state_c;
 
+static Datum charToInt(const char *addr);
+
 PG_FUNCTION_INFO_V1(add_ab);
 Datum
 add_ab(PG_FUNCTION_ARGS)
@@ -113,6 +115,29 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 char ptraddr[32]; 
                 memcpy(ptraddr,addr->vl_dat,32);
 		PG_RETURN_ARRAYTYPE_P(st->reservoir);
+}
+
+static Datum
+charToInt(const char *addr)
+{
+    int result = 0;
+    int length = strlen(str);
+    int i;
+    for (i = 0; i < length; i++) {
+        char c = str[i];
+        int value;
+        if (c >= '0' && c <= '9') {
+            value = c - '0';
+        } else if (c >= 'a' && c <= 'f') {
+            value = 10 + c - 'a';
+        } else if (c >= 'A' && c <= 'F') {
+            value = 10 + c - 'A';
+        } else {
+            return 0;
+        }
+        result = result * 16 + value;
+    }
+    return result;
 }
 
 /*
