@@ -88,6 +88,7 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
         //todo
         char ptraddr[32]; 
         memcpy(ptraddr,addr->vl_dat,32);
+        int = charToInt(ptraddr);
         if(s->poscnt <= s->reservoir_size){
         	int32 p = s->poscnt;
                 int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
@@ -118,7 +119,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 }
 
 static Datum
-charToInt(const char *addr)
+charToInt(const char *str)
 {
     int result = 0;
     int length = strlen(str);
