@@ -113,9 +113,10 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 {
                 state_c *st = palloc0 (sizeof(state_c)); //test
 		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
+                int len = sizeof(struct state_c);
                // char ptraddr[] = VARDATA_ANY(addr);
-                char ptraddr[32]; 
-                memcpy(ptraddr,addr->vl_dat,32);
+                //char ptraddr[32]; 
+                memcpy(st,addr->vl_dat,len);
 		PG_RETURN_ARRAYTYPE_P(st->reservoir);
 }
 
