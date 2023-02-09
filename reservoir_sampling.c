@@ -83,6 +83,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         	st0->reservoir_size = 100;
         	st0->reservoir = a;
                 memcpy(addr->vl_dat,st0,len);
+
         }
         //todo
         
@@ -102,6 +103,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         	}
         	s->poscnt ++;
         }
+        pfree(s);
         PG_RETURN_BYTEA_P(addr);
 }
 
