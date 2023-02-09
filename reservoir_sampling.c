@@ -76,7 +76,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         if(addr == NULL) {
 
                 state_c *st0 = palloc0 (sizeof(state_c));
-                ArrayType *a = new_intArrayType(100);
+                ArrayType *a = MyNew_intArrayType(100);
                 addr = palloc0 (sizeof(bytea));
         	
         	st0->poscnt = 1;
