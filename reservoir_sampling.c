@@ -82,12 +82,13 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         	st0->poscnt = 1;
         	st0->reservoir_size = 100;
         	st0->reservoir = a;
-                memcpy(addr->vl_dat,st0,len);
+                state_c **pp = &st0;
+                memcpy(addr->vl_dat,pp,len);
 
         }
         //todo
         
-        memcpy(s,addr->vl_dat,len);
+        memcpy(s,*addr->vl_dat,len);
         //int s = charToInt(ptraddr);
         if(s->poscnt <= s->reservoir_size){
         	int32 p = s->poscnt;
@@ -121,7 +122,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 state_c *st = palloc0 (sizeof(state_c));
 		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 int len = sizeof(struct state_c);
-                memcpy(st,addr->vl_dat,len);
+                memcpy(st,*addr->vl_dat,len);
                 num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
