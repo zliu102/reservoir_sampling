@@ -60,7 +60,7 @@ add_ab(PG_FUNCTION_ARGS)
 }
 
 
-PG_FUNCTION_INFO_V1(res_tras_crimes);
+PG_FUNCTION_INFO_V1(res_tras_crimes_c);
 Datum
 res_tras_crimes_c(PG_FUNCTION_ARGS)
 {
@@ -71,7 +71,7 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
 	bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
 	int64 newsample = PG_GETARG_INT64(1);
 	state_c *s = palloc0 (sizeof(state_c)); 
-        int len = sizeof(struct state_c);//test	
+        int len = sizeof(struct state_c);
         if(addr == NULL) {
 
                 state_c *st0 = palloc0 (sizeof(state_c));
@@ -108,7 +108,7 @@ res_tras_crimes_c(PG_FUNCTION_ARGS)
         PG_RETURN_BYTEA_P(addr);
 }
 
-PG_FUNCTION_INFO_V1(finalize_trans_crimes);
+PG_FUNCTION_INFO_V1(finalize_trans_crimes_c);
 Datum
 finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 {
