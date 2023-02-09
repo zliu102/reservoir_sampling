@@ -73,7 +73,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 	int64 newsample = PG_GETARG_INT64(1);
 	state_c *s = palloc0 (sizeof(state_c)); 
         int len = sizeof(struct state_c);
-        if(addr == NULL) {
+        if(PG_ARGISNULL(0)) {
 
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
@@ -140,7 +140,7 @@ ArrayType *
 MyNew_intArrayType(int num)
 {
         ArrayType  *r;
-        int                     nbytes;
+        int nbytes;
 
         /* if no elements, return a zero-dimensional array */
         if (num <= 0)
