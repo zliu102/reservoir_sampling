@@ -113,12 +113,14 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 ArrayType *result;
                 Datum *elems;
                 int i;
+
                 state_c *st = palloc0 (sizeof(state_c));
-                int64 *dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
-                int num = st->reservoir_size;
+                
 		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 int len = sizeof(struct state_c);
                 memcpy(st,addr->vl_dat,len);
+                int num = st->reservoir_size;
+                int64 *dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
                 elems = (Datum *)palloc(num * sizeof(Datum));
                 
@@ -128,6 +130,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 
                 result = construct_array(elems, num , INT8OID, 8, true, 'd');
 		PG_RETURN_ARRAYTYPE_P(result);
+                //PG_RETURN_ARRAYTYPE_P(st->reservoir);
 }
 static
 ArrayType *
