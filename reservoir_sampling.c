@@ -116,12 +116,11 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 int len = sizeof(struct state_c);
                 memcpy(st,addr->vl_dat,len);
-
                 int num = st->reservoir_size;
                 elems = (Datum *)palloc(num * sizeof(Datum));
-
+                int64 *dr = (int64 *) ARR_DATA_PTR(st->reservoir);
                 for (i = 0; i < num; i++) {
-                        elems[i] = state->samples[i];
+                        elems[i] = dr[i]; 
                 }
 
                 result = construct_array(elems, num , INT8OID, 8, true, 'd');
