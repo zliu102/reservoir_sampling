@@ -3,7 +3,7 @@ create function add_lzy(int,int)
 as 'MODULE_PATHNAME','add_ab'
 language C strict;
 
-CREATE FUNCTION res_tras_crimes_c(bytea, int64)
+CREATE FUNCTION res_tras_crimes_c(bytea, int8)
         RETURNS bytea
         AS 'MODULE_PATHNAME', 'res_tras_crimes'
         LANGUAGE C
@@ -17,7 +17,7 @@ CREATE FUNCTION finalize_trans_crimes_c(bytea)
         IMMUTABLE 
         PARALLEL SAFE;
 
-CREATE AGGREGATE reservoir_sampling_c(int64)
+CREATE AGGREGATE reservoir_sampling_c(int8)
 (
         sfunc = res_tras_crimes_c,
         stype = bytea,
