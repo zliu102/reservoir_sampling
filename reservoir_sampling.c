@@ -109,12 +109,14 @@ PG_FUNCTION_INFO_V1(finalize_trans_crimes_c);
 Datum
 finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 {
+                ArrayType *result;
+                Datum *elems;
+                int i;
                 state_c *st = palloc0 (sizeof(state_c)); //test
 		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 int len = sizeof(struct state_c);
                 memcpy(st,addr->vl_dat,len);
-                ArrayType *result;
-                Datum *elems;
+
                 int num = st->reservoir_size;
                 elems = (Datum *)palloc(num * sizeof(Datum));
 
