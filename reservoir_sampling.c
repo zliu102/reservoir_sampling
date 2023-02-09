@@ -78,17 +78,18 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
                 addr = palloc0 (sizeof(bytea));
-        	
+        	state_c **pp = &st0;
+                
         	st0->poscnt = 1;
         	st0->reservoir_size = 100;
         	st0->reservoir = a;
-                state_c **pp = &st0;
+                
                 memcpy(addr->vl_dat,pp,len);
 
         }
         //todo
         
-        memcpy(s,*addr->vl_dat,len);
+        memcpy(s, (state_c *) *(addr->vl_dat),len);
         //int s = charToInt(ptraddr);
         if(s->poscnt <= s->reservoir_size){
         	int32 p = s->poscnt;
