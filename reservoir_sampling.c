@@ -108,17 +108,20 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 PG_FUNCTION_INFO_V1(finalize_trans_crimes_c);
 Datum
 finalize_trans_crimes_c(PG_FUNCTION_ARGS)
-{
+{               
+
                 ArrayType *result;
                 Datum *elems;
                 int i;
-                state_c *st = palloc0 (sizeof(state_c)); //test
+                state_c *st = palloc0 (sizeof(state_c));
+                int64 *dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
+                int num = st->reservoir_size;
 		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 int len = sizeof(struct state_c);
                 memcpy(st,addr->vl_dat,len);
-                int num = st->reservoir_size;
+                
                 elems = (Datum *)palloc(num * sizeof(Datum));
-                int64 *dr = (int64 *) ARR_DATA_PTR(st->reservoir);
+                
                 for (i = 0; i < num; i++) {
                         elems[i] = dr[i]; 
                 }
