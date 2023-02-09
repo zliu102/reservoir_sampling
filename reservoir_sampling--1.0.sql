@@ -22,6 +22,7 @@ CREATE AGGREGATE reservoir_sampling_c(int8)
         sfunc = res_trans_crimes_c,
         stype = bytea,
         FINALFUNC = finalize_trans_crimes_c,
+        INITCOND='{}'
 );
 
 /*
