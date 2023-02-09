@@ -5,7 +5,7 @@ language C strict;
 
 CREATE FUNCTION res_tras_crimes_c(bytea, int8)
         RETURNS bytea
-        AS 'MODULE_PATHNAME', 'res_tras_crimes'
+        AS 'MODULE_PATHNAME', 'res_tras_crimes_c'
         LANGUAGE C
         IMMUTABLE 
         PARALLEL SAFE;
