@@ -45,6 +45,7 @@ typedef struct state_c
         int32 reservoir_size; 
 } state_c;
 
+static ArrayType *MyNew_intArrayType(int num);
 //static Datum charToInt(const char *addr);
 //static void intToChar(unsigned int hex, char* str)
 
@@ -120,7 +121,34 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 memcpy(st,addr->vl_dat,len);
 		PG_RETURN_ARRAYTYPE_P(st->reservoir);
 }
+static
+ArrayType *
+MyNew_intArrayType(int num)
+{
+        ArrayType  *r;
+        int                     nbytes;
 
+        /* if no elements, return a zero-dimensional array */
+        if (num <= 0)
+        {
+                Assert(num == 0);
+                r = construct_empty_array(INT8OID);
+                return r;
+        }
+
+        nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
+
+        r = (ArrayType *) palloc0(nbytes);
+
+        SET_VARSIZE(r, nbytes);
+        ARR_NDIM(r) = 1;
+        r->dataoffset = 0;                      /* marker for no null bitmap */
+        ARR_ELEMTYPE(r) = INT8OID;
+        ARR_DIMS(r)[0] = num;
+        ARR_LBOUND(r)[0] = 1;
+
+        return r;
+}
 /*static Datum
 charToInt(const char *str)
 {
