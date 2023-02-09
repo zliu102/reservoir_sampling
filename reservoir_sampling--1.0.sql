@@ -12,7 +12,7 @@ CREATE FUNCTION res_tras_crimes_c(bytea, int64)
 
 CREATE FUNCTION finalize_trans_crimes_c(bytea)
         RETURNS ArrayType
-        AS 'MODULE_PATHNAME'
+        AS 'MODULE_PATHNAME','finalize_trans_crimes_c'
         LANGUAGE C
         IMMUTABLE 
         PARALLEL SAFE;
