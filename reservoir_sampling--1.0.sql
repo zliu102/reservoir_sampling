@@ -20,7 +20,7 @@ CREATE FUNCTION finalize_trans_crimes_c(bytea)
 CREATE AGGREGATE reservoir_sampling_c(int64)
 (
         sfunc = res_tras_crimes,
-        stype = state_c,
+        stype = bytea,
         FINALFUNC = finalize_trans_crimes,
 );
 

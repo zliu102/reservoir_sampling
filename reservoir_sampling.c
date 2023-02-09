@@ -46,6 +46,7 @@ typedef struct state_c
 } state_c;
 
 //static Datum charToInt(const char *addr);
+//static void intToChar(unsigned int hex, char* str)
 
 PG_FUNCTION_INFO_V1(add_ab);
 Datum
@@ -141,6 +142,11 @@ charToInt(const char *str)
         result = result * 16 + value;
     }
     return result;
+}
+
+static
+void intToChar(unsigned int hex, char* str) {
+    sprintf(str, "%x", hex);
 }
 
 
