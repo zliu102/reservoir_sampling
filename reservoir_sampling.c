@@ -60,9 +60,9 @@ add_ab(PG_FUNCTION_ARGS)
 }
 
 
-PG_FUNCTION_INFO_V1(res_tras_crimes_c);
+PG_FUNCTION_INFO_V1(res_trans_crimes_c);
 Datum
-res_tras_crimes_c(PG_FUNCTION_ARGS)
+res_trans_crimes_c(PG_FUNCTION_ARGS)
 {
 
 		//state_c *d1 = malloc(sizeof(state_c));
