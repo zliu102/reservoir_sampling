@@ -72,6 +72,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 	bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
 	int64 newsample = PG_GETARG_INT64(1);
 	state_c *s = palloc0 (sizeof(state_c)); 
+        printf("is here");
         //int len = sizeof(struct state_c);
         if(PG_ARGISNULL(0)) {
 
