@@ -78,18 +78,18 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
                 addr = palloc0 (sizeof(bytea));
-        	state_c **pp = &st0;
+        	//state_c **pp = &st0;
 
         	st0->poscnt = 1;
         	st0->reservoir_size = 100;
         	st0->reservoir = a;
-                
-                memcpy(addr->vl_dat,pp,100);
+                sprintf(addr->vl_dat, "%p", (void*) st0);
+                //memcpy(addr->vl_dat,pp,100);
 
         }
         //todo
-        
-        memcpy(s, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
+        sscanf(addr->vl_dat, "%p", (void**)&s); 
+        //memcpy(s, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
         //int s = charToInt(ptraddr);
         if(s->poscnt <= s->reservoir_size){
         	int32 p = s->poscnt;
@@ -123,7 +123,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 state_c *st = palloc0 (sizeof(state_c));
 		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 //int len = sizeof(struct state_c);
-                memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
+                //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
+                sscanf(addr->vl_dat, "%p", (void**)&st); 
                 num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
