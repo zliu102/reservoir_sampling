@@ -72,7 +72,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 	bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
 	int64 newsample = PG_GETARG_INT64(1);
 	state_c *s = palloc0 (sizeof(state_c)); 
-        int len = sizeof(struct state_c);
+        //int len = sizeof(struct state_c);
         if(PG_ARGISNULL(0)) {
 
                 state_c *st0 = palloc0 (sizeof(state_c));
@@ -84,12 +84,12 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         	st0->reservoir_size = 100;
         	st0->reservoir = a;
                 
-                memcpy(addr->vl_dat,pp,len);
+                memcpy(addr->vl_dat,pp,100);
 
         }
         //todo
         
-        memcpy(s, (state_c *)((uintptr_t) *(addr->vl_dat)), len);
+        memcpy(s, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
         //int s = charToInt(ptraddr);
         if(s->poscnt <= s->reservoir_size){
         	int32 p = s->poscnt;
@@ -122,8 +122,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 
                 state_c *st = palloc0 (sizeof(state_c));
 		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
-                int len = sizeof(struct state_c);
-                memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), len);
+                //int len = sizeof(struct state_c);
+                memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
                 num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
