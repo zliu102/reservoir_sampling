@@ -127,8 +127,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 state_c *st = palloc0 (sizeof(state_c));
 		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 //int len = sizeof(struct state_c);
-                //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
-                sscanf(addr->vl_dat, "%p", (void**)&st); 
+                memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
+                //sscanf(addr->vl_dat, "%p", (void**)&st); 
                 num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
