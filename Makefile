@@ -5,7 +5,7 @@ OBJS = reservoir_sampling.o $(WIN32RES)
 EXTENSION = reservoir_sampling
 DATA = reservoir_sampling--1.0.sql
 PGFILEDESC = "reservoir_sampling - binary search for integer arrays"
-CFLAGS += -ggdb
+PG_CFLAGS += -ggdb
 
 REGRESS = reservoir_sampling
 
