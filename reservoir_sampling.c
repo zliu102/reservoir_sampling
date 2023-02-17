@@ -79,7 +79,8 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                 ArrayType *a = MyNew_intArrayType(100);
                 //addr = palloc0 (sizeof(bytea));
                 state_c **pp = &st0; 
-                bytea *addr = (bytea *) palloc(sizeof(*pp) + sizeof(bytea));
+                addr = (bytea *) palloc(sizeof(*pp) + sizeof(bytea));
+                int test = 100;
                 memcpy(VARDATA(addr),pp,sizeof(*pp));
                 SET_VARSIZE(addr,sizeof(*pp)+sizeof(bytea));
         	
@@ -127,7 +128,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 
                 state_c *st = palloc0 (sizeof(state_c));
 		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
-               memcpy(st,(state_c *) ((uintptr_t) *VARDATA(addr)),100);
+                memcpy(st,(state_c *) ((uintptr_t) *VARDATA(addr)),100);
                 //int len = sizeof(struct state_c);
                 //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
                 //sscanf(addr->vl_dat, "%p", (void**)&st); 
