@@ -79,12 +79,10 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                 ArrayType *a = MyNew_intArrayType(100);
                 //addr = palloc0 (sizeof(bytea));
                 state_c **pp = &st0; 
-                addr = (bytea *) palloc(sizeof(*pp) + sizeof(bytea));
+                addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
                 
-                memcpy(VARDATA(addr),pp,sizeof(*pp));
-                SET_VARSIZE(addr,sizeof(*pp)+sizeof(bytea));
-                char *lzy = VARDATA(addr);
-                int test = 100;
+                memcpy(VARDATA(addr),pp,sizeof(st0));
+                SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
                 printf("The value of st0 is: %p \n", *pp);
                 printf("The value of st0 is: %s \n", VARDATA(addr));
         	printf("The value of lzy is: %s ,%d\n", lzy,test);
@@ -92,13 +90,15 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         	st0->reservoir_size = 100;
         	st0->reservoir = a;
                 //sprintf(addr->vl_dat, "%p", (void*) st0);
+                //sprintf(VARDATA(addr), "%p", (void*) st0);
                 
 
         }
         //todo
         //sscanf(addr->vl_dat, "%p", (void**)&s); 
-        //memcpy(s, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
-        memcpy(s,(state_c *)((uintptr_t) *VARDATA(addr)),100);
+        state_c **pp2 = &s; 
+        memcpy(pp2,VARDATA(addr),sizeof(*pp2));
+        //memcpy(s,(state_c *)((uintptr_t) *VARDATA(addr)),100);
         //int s = charToInt(ptraddr);
         if(s->poscnt <= s->reservoir_size){
         	int32 p = s->poscnt;
