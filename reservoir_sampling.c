@@ -85,7 +85,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                 SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
                 printf("The value of st0 is: %p \n", *pp);
                 printf("The value of st0 is: %s \n", VARDATA(addr));
-        	printf("The value of lzy is: %s ,%d\n", lzy,test);
+        	
         	st0->poscnt = 1;
         	st0->reservoir_size = 100;
         	st0->reservoir = a;
