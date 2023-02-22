@@ -126,11 +126,11 @@ Datum
 finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 {               
 
-               // ArrayType *result;
-               // Datum *elems;
-               // int i;
-               // int num;
-               // int64 *dr;
+                ArrayType *result;
+                Datum *elems;
+                int i;
+                int num;
+                int64 *dr;
 
                 state_c *st = palloc0 (sizeof(state_c));
                 bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
