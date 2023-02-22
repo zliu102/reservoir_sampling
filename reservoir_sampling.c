@@ -150,7 +150,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 }
 
                 result = construct_array(elems, num , INT8OID, 8, true, 'd');
-                //PG_RETURN_ARRAYTYPE_P(result);
+                PG_RETURN_ARRAYTYPE_P(result);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
 static
