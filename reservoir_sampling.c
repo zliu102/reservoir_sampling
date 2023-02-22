@@ -66,15 +66,17 @@ Datum
 res_trans_crimes_c(PG_FUNCTION_ARGS)
 {
 
-		//state_c *d1 = malloc(sizeof(state_c));
-		//struct state_c st;
-	//	st = (state_c *)PG_GETARG_DATUM(0);
-	bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
-	int64 newsample = PG_GETARG_INT64(1);
-	state_c *s = palloc0 (sizeof(state_c)); 
-        state_c **pp2 = &s;
+        //state_c *d1 = malloc(sizeof(state_c));
+        //struct state_c st;
+    //  st = (state_c *)PG_GETARG_DATUM(0);
+    bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
+    char *lzy = VARDATA(addr);
+    int64 newsample = PG_GETARG_INT64(1);
+    state_c *s = palloc0 (sizeof(state_c)); 
+    s->reservoir = MyNew_intArrayType(100);
+        //state_c **pp2 = &s;
         //int len = sizeof(struct state_c);
-        if(PG_ARGISNULL(0)) {
+        if(addr == NULL) {
 
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
@@ -82,38 +84,38 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                 state_c **pp = &st0; 
                 addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
                 
-                memcpy(VARDATA(addr),pp,sizeof(st0));
+                //memcpy(VARDATA(addr),pp,sizeof(st0));
                 SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
                 printf("The value of st0 is: %p \n", *pp);
                 printf("The value of st0 is: %s \n", VARDATA(addr));
-        	
-        	st0->poscnt = 1;
-        	st0->reservoir_size = 100;
-        	st0->reservoir = a;
+            
+               st0->poscnt = 1;
+               st0->reservoir_size = 3;
+               st0->reservoir = a;
                 //sprintf(addr->vl_dat, "%p", (void*) st0);
-                //sprintf(VARDATA(addr), "%p", (void*) st0);
+                sprintf(VARDATA(addr), "%p", (void*) st0);
                 
 
         }
         //todo
         //sscanf(addr->vl_dat, "%p", (void**)&s); 
-        
-        memcpy(pp2,VARDATA(addr),sizeof(*pp2));
+        sscanf(VARDATA(addr), "%p", (void**)&s); 
+        //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
         //memcpy(s,(state_c *)((uintptr_t) *VARDATA(addr)),100);
         //int s = charToInt(ptraddr);
         if(s->poscnt <= s->reservoir_size){
-        	int32 p = s->poscnt;
+            int32 p = s->poscnt;
                 int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
                 dr[p-1] = newsample;
-        	s->poscnt ++;
+            s->poscnt ++;
 
         }else{
-        	int32 pos = rand() % s->poscnt ; //0 - postcnt -1
-        	if(pos < s->reservoir_size){
+            int32 pos = rand() % s->poscnt ; //0 - postcnt -1
+            if(pos < s->reservoir_size){
                         int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
                         dr[pos] = newsample;
-        	}
-        	s->poscnt ++;
+            }
+            s->poscnt ++;
         }
         //pfree(s);
         PG_RETURN_BYTEA_P(addr);
@@ -124,20 +126,21 @@ Datum
 finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 {               
 
-                ArrayType *result;
-                Datum *elems;
-                int i;
-                int num;
-                int64 *dr;
+               // ArrayType *result;
+               // Datum *elems;
+               // int i;
+               // int num;
+               // int64 *dr;
 
                 state_c *st = palloc0 (sizeof(state_c));
-		bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
-                state_c **pp2 = &st;    
-                memcpy(pp2,VARDATA(addr),sizeof(*pp2));
+                bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
+                st->reservoir = MyNew_intArrayType(100);
+                //state_c **pp2 = &st;    
+                //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
                 //int len = sizeof(struct state_c);
                 //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
-                //sscanf(addr->vl_dat, "%p", (void**)&st); 
-                num = st->reservoir_size;
+                sscanf(VARDATA(addr), "%p", (void**)&st);
+                /*num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
                 elems = (Datum *)palloc(num * sizeof(Datum));
@@ -146,9 +149,9 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                         elems[i] = dr[i]; 
                 }
 
-                result = construct_array(elems, num , INT8OID, 8, true, 'd');
-		PG_RETURN_ARRAYTYPE_P(result);
-                //PG_RETURN_ARRAYTYPE_P(st->reservoir); can we directly return the st->reservoir?
+                result = construct_array(elems, num , INT8OID, 8, true, 'd');*/
+                //PG_RETURN_ARRAYTYPE_P(result);
+                PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
 static
 ArrayType *
