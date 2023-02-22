@@ -70,13 +70,13 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         //struct state_c st;
     //  st = (state_c *)PG_GETARG_DATUM(0);
     bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
-    char *lzy = VARDATA(addr);
+    //char *lzy = VARDATA(addr);
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c)); 
-    s->reservoir = MyNew_intArrayType(100);
+    //s->reservoir = MyNew_intArrayType(100);
         //state_c **pp2 = &s;
         //int len = sizeof(struct state_c);
-        if(addr == NULL) {
+        if(PG_ARGISNULL(0)) {
 
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
@@ -135,12 +135,12 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 state_c *st = palloc0 (sizeof(state_c));
                 bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 st->reservoir = MyNew_intArrayType(100);
-                //state_c **pp2 = &st;    
-                //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
+                state_c **pp2 = &st;    
+                memcpy(pp2,VARDATA(addr),sizeof(*pp2));
                 //int len = sizeof(struct state_c);
                 //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
-                sscanf(VARDATA(addr), "%p", (void**)&st);
-                /*num = st->reservoir_size;
+                //sscanf(VARDATA(addr), "%p", (void**)&st);
+                num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
                 elems = (Datum *)palloc(num * sizeof(Datum));
@@ -149,9 +149,9 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                         elems[i] = dr[i]; 
                 }
 
-                result = construct_array(elems, num , INT8OID, 8, true, 'd');*/
+                result = construct_array(elems, num , INT8OID, 8, true, 'd');
                 //PG_RETURN_ARRAYTYPE_P(result);
-                PG_RETURN_ARRAYTYPE_P(st->reservoir); 
+                //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
 static
 ArrayType *
