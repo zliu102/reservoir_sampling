@@ -34,7 +34,7 @@
 #include "postgres.h"
 #include <limits.h>
 #include "catalog/pg_type.h"
-#include "/home/oracle/datasets/postgres11ps/postgres-pbds/contrib/intarray/_int.h"
+//#include "/home/oracle/datasets/postgres11ps/postgres-pbds/contrib/intarray/_int.h"
 
 PG_MODULE_MAGIC;
 
@@ -76,8 +76,8 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     s->reservoir = MyNew_intArrayType(100);
         //state_c **pp2 = &s;
         //int len = sizeof(struct state_c);
-    //if(PG_ARGISNULL(0)) {
-
+    if(PG_ARGISNULL(0)) {
+                elog(ERROR, "lzy");
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
                 //addr = palloc0 (sizeof(bytea));
@@ -94,7 +94,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                 sprintf(VARDATA(addr), "%p", (void*) st0);
                 
 
-    //}
+    }
         //todo
         //sscanf(addr->vl_dat, "%p", (void**)&s); 
         sscanf(VARDATA(addr), "%p", (void**)&s); 
