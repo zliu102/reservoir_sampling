@@ -21,8 +21,8 @@ CREATE AGGREGATE reservoir_sampling_c(bigint)
 (
         sfunc = res_trans_crimes_c,
         stype = bytea,
-        FINALFUNC = finalize_trans_crimes_c,
-        INITCOND='{}'
+        FINALFUNC = finalize_trans_crimes_c
+       
 );
 
 /*
