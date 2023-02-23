@@ -142,7 +142,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 //int len = sizeof(struct state_c);
                 //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
                 //sscanf(addr->vl_dat, "%p", (void**)&st); 
-                //sscanf(VARDATA(addr), "%p", (void**)&st);
+                sscanf(VARDATA(addr), "%p", (void**)&st);
                 num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
