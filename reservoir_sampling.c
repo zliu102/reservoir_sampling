@@ -73,7 +73,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c)); 
-    //s->reservoir = MyNew_intArrayType(100);
+    s->reservoir = MyNew_intArrayType(100);
         //state_c **pp2 = &s;
         //int len = sizeof(struct state_c);
         //if(PG_ARGISNULL(0)) {
@@ -135,7 +135,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 
                 state_c *st = palloc0 (sizeof(state_c));
                 bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
-                //st->reservoir = MyNew_intArrayType(100);
+                st->reservoir = MyNew_intArrayType(100);
                 state_c **pp2 = &st; 
                 //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
                 //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
