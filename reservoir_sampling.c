@@ -74,7 +74,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c)); 
     //s->reservoir = MyNew_intArrayType(100);
-        state_c **pp2 = &s;
+        //state_c **pp2 = &s;
         //int len = sizeof(struct state_c);
         //if(PG_ARGISNULL(0)) {
 
@@ -92,14 +92,14 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                st0->poscnt = 1;
                st0->reservoir_size = 3;
                st0->reservoir = a;
-                sprintf(addr->vl_dat, "%p", (void*) st0);
-                //sprintf(VARDATA(addr), "%p", (void*) st0);
+                //sprintf(addr->vl_dat, "%p", (void*) st0);
+                sprintf(VARDATA(addr), "%p", (void*) st0);
                 
 
         //}
         //todo
-        sscanf(addr->vl_dat, "%p", (void**)&s); 
-        //sscanf(VARDATA(addr), "%p", (void**)&s); 
+        //sscanf(addr->vl_dat, "%p", (void**)&s); 
+        sscanf(VARDATA(addr), "%p", (void**)&s); 
         //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
         //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
         //memcpy(s,(state_c *)((uintptr_t) *VARDATA(addr)),100);
@@ -141,7 +141,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
                 //int len = sizeof(struct state_c);
                 //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
-                sscanf(addr->vl_dat, "%p", (void**)&st); 
+                //sscanf(addr->vl_dat, "%p", (void**)&st); 
                 //sscanf(VARDATA(addr), "%p", (void**)&st);
                 num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
