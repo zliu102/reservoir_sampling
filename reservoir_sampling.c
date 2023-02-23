@@ -74,10 +74,11 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c)); 
     s->reservoir = MyNew_intArrayType(100);
+    elog(ERROR, "lzy1");
         //state_c **pp2 = &s;
         //int len = sizeof(struct state_c);
     if(PG_ARGISNULL(0)) {
-                elog(ERROR, "lzy");
+                elog(ERROR, "lzy2");
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
                 //addr = palloc0 (sizeof(bytea));
