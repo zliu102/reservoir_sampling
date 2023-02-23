@@ -74,7 +74,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c)); 
     //s->reservoir = MyNew_intArrayType(100);
-        //state_c **pp2 = &s;
+        state_c **pp2 = &s;
         //int len = sizeof(struct state_c);
         //if(PG_ARGISNULL(0)) {
 
@@ -84,7 +84,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                 state_c **pp = &st0; 
                 addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
                 
-                //memcpy(VARDATA(addr),pp,sizeof(st0));
+                memcpy(VARDATA(addr),pp,sizeof(st0));
                 SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
                 printf("The value of st0 is: %p \n", *pp);
                 printf("The value of st0 is: %s \n", VARDATA(addr));
@@ -93,14 +93,14 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                st0->reservoir_size = 3;
                st0->reservoir = a;
                 //sprintf(addr->vl_dat, "%p", (void*) st0);
-                sprintf(VARDATA(addr), "%p", (void*) st0);
+                //sprintf(VARDATA(addr), "%p", (void*) st0);
                 
 
         //}
         //todo
         //sscanf(addr->vl_dat, "%p", (void**)&s); 
-        sscanf(VARDATA(addr), "%p", (void**)&s); 
-        //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
+        //sscanf(VARDATA(addr), "%p", (void**)&s); 
+        memcpy(pp2,VARDATA(addr),sizeof(*pp2));
         //memcpy(s,(state_c *)((uintptr_t) *VARDATA(addr)),100);
         //int s = charToInt(ptraddr);
         if(s->poscnt <= s->reservoir_size){
@@ -136,10 +136,10 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 st->reservoir = MyNew_intArrayType(100);
                 state_c **pp2 = &st;    
-                //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
+                memcpy(pp2,VARDATA(addr),sizeof(*pp2));
                 //int len = sizeof(struct state_c);
                 //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
-                sscanf(VARDATA(addr), "%p", (void**)&st);
+                //sscanf(VARDATA(addr), "%p", (void**)&st);
                 num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
