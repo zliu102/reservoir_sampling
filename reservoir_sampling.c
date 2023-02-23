@@ -76,7 +76,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     s->reservoir = MyNew_intArrayType(100);
         //state_c **pp2 = &s;
         //int len = sizeof(struct state_c);
-    //if(PG_ARGISNULL(0)) {
+    if(PG_ARGISNULL(0)) {
 
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
@@ -94,7 +94,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                 sprintf(VARDATA(addr), "%p", (void*) st0);
                 
 
-    //}
+    }
         //todo
         //sscanf(addr->vl_dat, "%p", (void**)&s); 
         sscanf(VARDATA(addr), "%p", (void**)&s); 
