@@ -83,7 +83,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                 //addr = palloc0 (sizeof(bytea));
                 state_c **pp = &st0; 
                 addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
-                memcpy(addr->vl_dat,pp,sizeof(st0));
+                //memcpy(addr->vl_dat,pp,sizeof(st0));
                 //memcpy(VARDATA(addr),pp,sizeof(st0));
                 SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
                 printf("The value of st0 is: %p \n", *pp);
@@ -92,15 +92,15 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                st0->poscnt = 1;
                st0->reservoir_size = 3;
                st0->reservoir = a;
-                //sprintf(addr->vl_dat, "%p", (void*) st0);
+                sprintf(addr->vl_dat, "%p", (void*) st0);
                 //sprintf(VARDATA(addr), "%p", (void*) st0);
                 
 
         //}
         //todo
-        //sscanf(addr->vl_dat, "%p", (void**)&s); 
+        sscanf(addr->vl_dat, "%p", (void**)&s); 
         //sscanf(VARDATA(addr), "%p", (void**)&s); 
-        memcpy(pp2,addr->vl_dat,sizeof(*pp2));
+        //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
         //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
         //memcpy(s,(state_c *)((uintptr_t) *VARDATA(addr)),100);
         //int s = charToInt(ptraddr);
@@ -135,12 +135,13 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 
                 state_c *st = palloc0 (sizeof(state_c));
                 bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
-                st->reservoir = MyNew_intArrayType(100);
+                //st->reservoir = MyNew_intArrayType(100);
                 state_c **pp2 = &st; 
-                memcpy(pp2,addr->vl_dat,sizeof(*pp2));
+                //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
                 //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
                 //int len = sizeof(struct state_c);
                 //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
+                sscanf(addr->vl_dat, "%p", (void**)&st); 
                 //sscanf(VARDATA(addr), "%p", (void**)&st);
                 num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
