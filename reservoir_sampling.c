@@ -77,7 +77,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     s->poscnt = 2;
     s->reservoir_size = 4;
     elog(INFO, "lzy1");
-        //state_c **pp2 = &s;
+    state_c **pp2 = &s;
         //int len = sizeof(struct state_c);
     //if(PG_ARGISNULL(0)) {
                 elog(INFO, "lzy2");
@@ -101,10 +101,10 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         //todo
         //sscanf(addr->vl_dat, "%p", (void**)&s); 
         sscanf(VARDATA(addr), "%p", (void**)&s); 
+        elog(INFO, "lzy3");
         //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
-        //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
-        //memcpy(s,(state_c *)((uintptr_t) *VARDATA(addr)),100);
-        //int s = charToInt(ptraddr);
+        memcpy(pp2,VARDATA(addr),sizeof(*pp2));
+        
         if(s->poscnt <= s->reservoir_size){
             int32 p = s->poscnt;
                 int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
