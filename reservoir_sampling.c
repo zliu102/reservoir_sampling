@@ -100,7 +100,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 
     //}
         //todo
-                sprintf((void*) st0, "%p", VARDATA(addr));
+                sprintf((void*) s, "%p", VARDATA(addr));
         //sscanf(addr->vl_dat, "%p", (void**)&s); 
         //sscanf(VARDATA(addr), "%p", (void**) &s); 
         elog(INFO, "lzy3");
