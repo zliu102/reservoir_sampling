@@ -93,6 +93,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                st0->poscnt = 1;
                st0->reservoir_size = 3;
                st0->reservoir = a;
+               char *test = VARDATA(addr);
                 //sprintf(addr->vl_dat, "%p", (void*) st0);
                 sprintf(VARDATA(addr), "%p", (void*) st0);
                 
@@ -100,7 +101,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     //}
         //todo
         //sscanf(addr->vl_dat, "%p", (void**)&s); 
-        sscanf(VARDATA(addr), "%p", (void**)&s); 
+        sscanf(VARDATA(addr), "%p", (void*) s); 
         elog(INFO, "lzy3");
         //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
         memcpy(pp2,VARDATA(addr),sizeof(*pp2));
