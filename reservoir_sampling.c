@@ -177,7 +177,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                         elog(INFO, "dr %d is %ld",i,dr[i]);
                         elog(INFO, "elems %d is %ld",i,elems[i]);
                 }
-                nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
+                int nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
                 result = (ArrayType *) palloc0(nbytes);
                 //CopyArrayEls(result,elems, nullsPtr, nitems,typlen, typbyval, typalign,true);
 
