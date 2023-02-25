@@ -72,7 +72,8 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
 
     int64 newsample = PG_GETARG_INT64(1);
-    state_c *s = palloc0 (sizeof(state_c)); 
+    state_c *s = palloc0 (sizeof(state_c));
+    state_c **pp2 = &s; 
     //s->reservoir = MyNew_intArrayType(100);
     //s->poscnt = 2;
     //s->reservoir_size = 4;
