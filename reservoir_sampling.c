@@ -109,11 +109,11 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
         //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
         void **new_ptr = (void **) VARDATA(addr);
-        state_c *new_s= (state_c *) (*new_ptr);
+        //state_c *new_s= (state_c *) (*new_ptr);
         s= (state_c *) (*new_ptr);
-        elog(INFO, "st0 is %p",new_s);
-        elog(INFO, "addr is %p",VARDATA(addr));
-        elog(INFO, "new_s is %p",new_s);
+        //elog(INFO, "st0 is %p",new_s);
+        //elog(INFO, "addr is %p",VARDATA(addr));
+        //elog(INFO, "new_s is %p",new_s);
         elog(INFO, "s is %p",s);
         elog(INFO, "s poscnt is %d,reservoir_size is %d",s->poscnt,s->reservoir_size);
         
@@ -154,11 +154,15 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 
                 state_c *st = palloc0 (sizeof(state_c));
                 bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
-                char *lzy = VARDATA(addr);
+                void **new_ptr = (void **) VARDATA(addr);
+                st= (state_c *) (*new_ptr);
+                elog(INFO, "st is %p",st);
+                elog(INFO, "st poscnt is %d,reservoir_size is %d",st->poscnt,st->reservoir_size);
+        
                 //st->reservoir = MyNew_intArrayType(100);
-                state_c **pp2 = &st; 
+                //state_c **pp2 = &st; 
                 //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
-                memcpy(pp2,VARDATA(addr),sizeof(*pp2));
+                //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
                 //int len = sizeof(struct state_c);
                 //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
                 //sscanf(addr->vl_dat, "%p", (void**)&st); 
