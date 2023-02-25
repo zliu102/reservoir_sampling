@@ -177,17 +177,17 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                         elog(INFO, "dr %d is %ld",i,dr[i]);
                         elog(INFO, "elems %d is %ld",i,elems[i]);
                 }
+                //nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
+                //result = (ArrayType *) palloc0(nbytes);
+                //CopyArrayEls(result,elems, nullsPtr, nitems,typlen, typbyval, typalign,true);
 
+                
                 result = construct_array(elems, num , INT8OID, sizeof(int64), true, 'i');
-                int64 *dr2 = (int64 *) ARR_DATA_PTR(result);
-                for (i = 0; i < num; i++) {
-                        elog(INFO, "dr2 %d is %ld",i,dr2[i]);
-                }
                 if (ARR_NDIM(result) != 1 || ARR_HASNULL(result) || ARR_ELEMTYPE(result) != INT8OID){
                     elog(INFO, "yes");
                 }
-                PG_RETURN_ARRAYTYPE_P(PointerGetDatum(result));
-                
+                //PG_RETURN_ARRAYTYPE_P(result);
+                PG_RETURN_ARRAYTYPE_P(CopyArrayEls(dr, num, sizeof(int64), true));
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
 static
