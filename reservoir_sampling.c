@@ -181,12 +181,15 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 CopyArrayEls(result, elems, NULL, num, sizeof(int64), true, 'd', true);
                 
                 //result = construct_array(elems, num , INT8OID, sizeof(int64), true, 'i');
-                if (ARR_NDIM(result) != 1 )
+                if (ARR_NDIM(result) != 1 ){
                      elog(INFO, "yes1");
-                if (ARR_HASNULL(result)) 
+                 }
+                if (ARR_HASNULL(result)) {
                     elog(INFO, "yes2");
-                if(ARR_ELEMTYPE(result) != INT8OID))
+                }
+                if(ARR_ELEMTYPE(result) != INT8OID){
                     elog(INFO, "yes3");
+                }
                    
                 }
                 PG_RETURN_ARRAYTYPE_P(result);
