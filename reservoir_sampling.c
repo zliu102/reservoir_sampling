@@ -106,9 +106,11 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         //sscanf(VARDATA(addr), "%p", (void**) &s); 
         elog(INFO, "3");
         //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
-        //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
         void **new_ptr = (void **) VARDATA(addr);
-        s = (state_c *) (*new_ptr);
+        state_c *new1= (state_c *) (*new_ptr);
+
+        memcpy(pp2,VARDATA(addr),sizeof(*pp2));
+        
 
         if(s->poscnt <= s->reservoir_size){
             int32 p = s->poscnt;
