@@ -177,8 +177,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                         elog(INFO, "dr %d is %ld",i,dr[i]);
                         elog(INFO, "elems %d is %ld",i,elems[i]);
                 }
-                //nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
-                //result = (ArrayType *) palloc0(nbytes);
+                nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
+                result = (ArrayType *) palloc0(nbytes);
                 //CopyArrayEls(result,elems, nullsPtr, nitems,typlen, typbyval, typalign,true);
 
                 
@@ -187,8 +187,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                     elog(INFO, "yes");
                 }
                 //PG_RETURN_ARRAYTYPE_P(result);
-                PG_RETURN_ARRAYTYPE_P(CopyArrayEls(dr, num, sizeof(int64), true));
-                //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
+                PG_RETURN_ARRAYTYPE_P(CopyArrayEls(result, elems, NULL, num, sizeof(int64), true, 'd', true));                //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
 static
 ArrayType *
