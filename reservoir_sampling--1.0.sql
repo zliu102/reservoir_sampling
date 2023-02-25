@@ -10,8 +10,8 @@ CREATE FUNCTION res_trans_crimes_c(bytea, bigint)
         IMMUTABLE 
         PARALLEL SAFE;
 
-CREATE FUNCTION finalize_trans_crimes_c(internal)
-        RETURNS internal
+CREATE FUNCTION finalize_trans_crimes_c(bytea)
+        RETURNS ArrayType
         AS 'MODULE_PATHNAME','finalize_trans_crimes_c'
         LANGUAGE C
         IMMUTABLE 

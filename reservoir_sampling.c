@@ -46,6 +46,7 @@ typedef struct state_c
 } state_c;
 
 static ArrayType *MyNew_intArrayType(int num);
+static bool initialized = false;
 //static Datum charToInt(const char *addr);
 //static void intToChar(unsigned int hex, char* str)
 
@@ -71,6 +72,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c));
     //if(PG_ARGISNULL(0)) {
+    if(!initialized){
                 elog(INFO, "2");
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
@@ -87,9 +89,9 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                memcpy(VARDATA(addr), &st0, sizeof(void *));
                 //sprintf(addr->vl_dat, "%p", (void*) st0);
                 //sprintf(VARDATA(addr), "%p", (void*) st0);
-                
+               initialized = true;
 
-    //}
+    }
         //todo
         //sprintf((void*) s, "%p", VARDATA(addr));
         //sscanf(addr->vl_dat, "%p", (void**)&s); 
@@ -182,11 +184,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                     elog(INFO, "yes4");
                 }
                 
-                //PG_RETURN_ARRAYTYPE_P(result);
-                Datum array_datum = PointerGetDatum(result);
-                // 将指针转换为internal类型
-                Datum internal_datum = PointerGetDatum(DatumGetPointer(array_datum));
-                PG_RETURN_INTERNAL(internal_datum);
+                PG_RETURN_ARRAYTYPE_P(result);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
 static
