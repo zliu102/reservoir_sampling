@@ -168,7 +168,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 result = (ArrayType *) palloc0(nbytes);
                 //CopyArrayEls(result, elems, NULL, num, sizeof(int64), true, 'd', true);
                 
-                result = construct_array((Datum *)elems, num , INT4OID, sizeof(int32), true, 'i');
+                result = construct_array((Datum *)elems, num , INT8OID, sizeof(int64), true, 'i');
                 if (ARR_NDIM(result) != 1 ){
                      elog(INFO, "yes1");
                  }
