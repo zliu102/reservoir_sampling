@@ -125,7 +125,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             elog(INFO, "p is %d",p);
             int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
             dr[p-1] = newsample;
-            elog(INFO, "dr is %d",dr[p-1]);
+            elog(INFO, "dr is %ld",dr[p-1]);
             s->poscnt ++;
             elog(INFO, "poscnt is %d",s->poscnt);
 
@@ -167,7 +167,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
                 //sscanf(addr->vl_dat, "%p", (void**)&st); 
                 //sscanf(VARDATA(addr), "%p", (void**)&st);
-                num = st->reservoir_size;
+                /*num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
                 elems = (Datum *)palloc(num * sizeof(Datum));
@@ -182,9 +182,9 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 int64 *dr2 = (int64 *) ARR_DATA_PTR(result);
                 for (i = 0; i < num; i++) {
                         elog(INFO, "dr2 %d is %ld",i,dr2[i]);
-                }
-                PG_RETURN_ARRAYTYPE_P(result);
-                //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
+                }*/
+                //PG_RETURN_ARRAYTYPE_P(result);
+                PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
 static
 ArrayType *
