@@ -110,15 +110,17 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             //elog(INFO, "p is %d",p);
             int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
             dr[p-1] = newsample;
-            elog(INFO, "dr is %ld",dr[p-1]);
+            elog(INFO, "newsample is %ld",newsample);
             s->poscnt ++;
             //elog(INFO, "poscnt is %d",s->poscnt);
         }else{
             elog(INFO, "case 2");
             int32 pos = rand() % s->poscnt ;
-            elog(INFO, "pos is %d",pos); //0 - postcnt -1
+            elog(INFO, "pos is %d",pos);//0 - postcnt -1
+            elog(INFO, "newsample is %ld",newsample); 
             if(pos < s->reservoir_size){
                         int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
+
                         dr[pos] = newsample;
             }
             s->poscnt ++;
