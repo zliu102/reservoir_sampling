@@ -191,7 +191,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                     elog(INFO, "yes3");
                 }
                    
-                }
+                
                 PG_RETURN_ARRAYTYPE_P(result);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
