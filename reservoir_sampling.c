@@ -114,7 +114,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         elog(INFO, "st0 is %p",new_s);
         elog(INFO, "addr is %p",VARDATA(addr));
         elog(INFO, "new_s is %p",new_s);
-        elog(INFO, "new_s is %p",s);
+        elog(INFO, "s is %p",s);
 
         
         
