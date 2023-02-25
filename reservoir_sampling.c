@@ -102,24 +102,21 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         void **new_ptr = (void **) VARDATA(addr);
         
         s= (state_c *) (*new_ptr);
-        elog(INFO, "s is %p",s);
+//       elog(INFO, "s is %p",s);
         elog(INFO, "s poscnt is %d,reservoir_size is %d",s->poscnt,s->reservoir_size);
-        
-        
-
         if(s->poscnt <= s->reservoir_size){
             elog(INFO, "case 1");
             int32 p = s->poscnt;
-            elog(INFO, "p is %d",p);
+            //elog(INFO, "p is %d",p);
             int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
             dr[p-1] = newsample;
             elog(INFO, "dr is %ld",dr[p-1]);
             s->poscnt ++;
-            elog(INFO, "poscnt is %d",s->poscnt);
-
+            //elog(INFO, "poscnt is %d",s->poscnt);
         }else{
             elog(INFO, "case 2");
-            int32 pos = rand() % s->poscnt ; //0 - postcnt -1
+            int32 pos = rand() % s->poscnt ;
+            elog(INFO, "pos is %d",pos); //0 - postcnt -1
             if(pos < s->reservoir_size){
                         int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
                         dr[pos] = newsample;
