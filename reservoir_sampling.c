@@ -107,7 +107,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         elog(INFO, "3");
         //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
         void **new_ptr = (void **) VARDATA(addr);
-        state_c *new1= (state_c *) (*new_ptr);
+        state_c *new_s= (state_c *) (*new_ptr);
 
         memcpy(pp2,VARDATA(addr),sizeof(*pp2));
         
