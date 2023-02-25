@@ -182,7 +182,11 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                     elog(INFO, "yes4");
                 }
                 
-                PG_RETURN_ARRAYTYPE_P(result);
+                //PG_RETURN_ARRAYTYPE_P(result);
+                Datum array_datum = PointerGetDatum(result);
+                // 将指针转换为internal类型
+                Datum internal_datum = PointerGetDatum(DatumGetPointer(array_datum));
+                PG_RETURN_INTERNAL(internal_datum);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
 static
