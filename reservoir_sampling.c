@@ -142,7 +142,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 }
 
 PG_FUNCTION_INFO_V1(finalize_trans_crimes_c);
-ArrayType
+Datum
 finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 {               
 
@@ -186,7 +186,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 if (ARR_NDIM(result) != 1 || ARR_HASNULL(result) || ARR_ELEMTYPE(result) != INT8OID){
                     elog(INFO, "yes");
                 }
-                PG_RETURN_ARRAYTYPE_P(result);
+                PG_RETURN_ARRAYTYPE_P(PointerGetDatum(result));
                 
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
