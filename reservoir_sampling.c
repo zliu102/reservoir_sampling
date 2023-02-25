@@ -73,7 +73,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     state_c *s = palloc0 (sizeof(state_c));
     //if(PG_ARGISNULL(0)) {
     if(!initialized){
-                elog(INFO, "2");
+                //elog(INFO, "2");
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
                 //addr = palloc0 (sizeof(bytea));
@@ -99,7 +99,6 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
         //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
         //state_c *new_s= (state_c *) (*new_ptr);
-        elog(INFO, "3");
         void **new_ptr = (void **) VARDATA(addr);
         
         s= (state_c *) (*new_ptr);
@@ -119,6 +118,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             elog(INFO, "poscnt is %d",s->poscnt);
 
         }else{
+            elog(INFO, "case 2");
             int32 pos = rand() % s->poscnt ; //0 - postcnt -1
             if(pos < s->reservoir_size){
                         int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
