@@ -183,7 +183,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 for (i = 0; i < num; i++) {
                         elog(INFO, "dr2 %d is %ld",i,dr2[i]);
                 }
-                if (ARR_NDIM(result) != 1 || ARR_HASNULL(result) || ARR_ELEMTYPE(result) != INT4OID){
+                if (ARR_NDIM(result) != 1 || ARR_HASNULL(result) || ARR_ELEMTYPE(result) != INT8OID){
                     elog(INFO, "yes");
                 }
                 PG_RETURN_ARRAYTYPE_P(result);
