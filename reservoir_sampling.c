@@ -173,14 +173,14 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 
                 for (i = 0; i < num; i++) {
                         elems[i] = Int64GetDatum(dr[i]); 
-                        elog(INFO, "dr %d is %ld",i,dr[i]);
-                        elog(INFO, "elems %d is %ld",i,elems[i]);
+                        elog(INFO, "dr[%d] is %ld",i,dr[i]);
+                        elog(INFO, "elems[%d] is %ld",i,elems[i]);
                 }
                 int nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
                 result = (ArrayType *) palloc0(nbytes);
-                CopyArrayEls(result, elems, NULL, num, sizeof(int64), true, 'd', true);
+                //CopyArrayEls(result, elems, NULL, num, sizeof(int64), true, 'd', true);
                 
-                //result = construct_array(elems, num , INT8OID, sizeof(int64), true, 'i');
+                result = construct_array(elems, num , INT8OID, sizeof(int64), true, 'i');
                 if (ARR_NDIM(result) != 1 ){
                      elog(INFO, "yes1");
                  }
@@ -190,7 +190,11 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 if(ARR_ELEMTYPE(result) != INT8OID){
                     elog(INFO, "yes3");
                 }
-                   
+                if (pg_typeof(result) == ARRAYOID) {
+                    elog(INFO, "result is of type array");
+                } else {
+                    elog(INFO, "result is not of type array");
+                }
                 
                 PG_RETURN_ARRAYTYPE_P(result);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
