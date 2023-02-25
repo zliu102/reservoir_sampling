@@ -167,7 +167,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
                 //sscanf(addr->vl_dat, "%p", (void**)&st); 
                 //sscanf(VARDATA(addr), "%p", (void**)&st);
-                /*num = st->reservoir_size;
+                num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
                 elems = (Datum *)palloc(num * sizeof(Datum));
@@ -182,9 +182,13 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 int64 *dr2 = (int64 *) ARR_DATA_PTR(result);
                 for (i = 0; i < num; i++) {
                         elog(INFO, "dr2 %d is %ld",i,dr2[i]);
-                }*/
-                //PG_RETURN_ARRAYTYPE_P(result);
-                PG_RETURN_ARRAYTYPE_P(st->reservoir); 
+                }
+                if (ARR_NDIM(result) != 1 || ARR_HASNULL(result) || ARR_ELEMTYPE(result) != INT4OID){
+                    elog(INFO, "yes");
+                }
+                PG_RETURN_ARRAYTYPE_P(result);
+                
+                //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
 static
 ArrayType *
