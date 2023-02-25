@@ -190,10 +190,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 if(ARR_ELEMTYPE(result) != INT8OID){
                     elog(INFO, "yes3");
                 }
-                if (pg_typeof(result) == ARRAYOID) {
-                    elog(INFO, "result is of type array");
-                } else {
-                    elog(INFO, "result is not of type array");
+                if (result && ARR_ELEMTYPE(result) == INT8OID) {
+                        // result is an array of int8 values
                 }
                 
                 PG_RETURN_ARRAYTYPE_P(result);
