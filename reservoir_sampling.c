@@ -110,6 +110,9 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         memcpy(pp2,VARDATA(addr),sizeof(*pp2));
         void **new_ptr = (void **) VARDATA(addr);
         state_c *new_s= (state_c *) (*new_ptr);
+        elog(INFO, "st0 is %p",new_s);
+        elog(INFO, "addr is %s",VARDATA(addr));
+        elog(INFO, "new_s is %p",new_s);
 
         
         
@@ -163,7 +166,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                         elems[i] = dr[i]; 
                 }
 
-                result = construct_array(elems, num , INT8OID, 8, true, 'd');
+                result = construct_array(elems, num , INT4OID, sizeof(int4), true, 'i');
                 PG_RETURN_ARRAYTYPE_P(result);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
