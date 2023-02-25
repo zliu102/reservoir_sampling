@@ -142,7 +142,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 }
 
 PG_FUNCTION_INFO_V1(finalize_trans_crimes_c);
-Datum
+ArrayType
 finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 {               
 
