@@ -174,6 +174,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 
                 for (i = 0; i < num; i++) {
                         elems[i] = dr[i]; 
+                        elog(INFO, "elems %d is %d",i,elems[i]);
                 }
 
                 result = construct_array(elems, num , INT8OID, 8, true, 'd');
