@@ -73,7 +73,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c));
-    state_c **pp2 = &s; 
+    //state_c **pp2 = &s; 
     //s->reservoir = MyNew_intArrayType(100);
     //s->poscnt = 2;
     //s->reservoir_size = 4;
@@ -94,7 +94,6 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                st0->poscnt = 1;
                st0->reservoir_size = 3;
                st0->reservoir = a;
-               char *test = VARDATA(addr);
                memcpy(VARDATA(addr), &st0, sizeof(void *));
                 //sprintf(addr->vl_dat, "%p", (void*) st0);
                 //sprintf(VARDATA(addr), "%p", (void*) st0);
@@ -181,7 +180,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 result = (ArrayType *) palloc0(nbytes);
                 CopyArrayEls(result, elems, NULL, num, sizeof(int64), true, 'd', true);
                 
-                result = construct_array(elems, num , INT8OID, sizeof(int64), true, 'i');
+                //result = construct_array(elems, num , INT8OID, sizeof(int64), true, 'i');
                 if (ARR_NDIM(result) != 1 || ARR_HASNULL(result) || ARR_ELEMTYPE(result) != INT8OID){
                     elog(INFO, "yes");
                 }
