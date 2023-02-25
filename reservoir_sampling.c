@@ -174,14 +174,14 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 
                 for (i = 0; i < num; i++) {
                         elems[i] = Int64GetDatum(dr[i]); 
-                        elog(INFO, "dr %d is %d",i,dr[i]);
-                        elog(INFO, "elems %d is %d",i,elems[i]);
+                        elog(INFO, "dr %d is %ld",i,dr[i]);
+                        elog(INFO, "elems %d is %ld",i,elems[i]);
                 }
 
                 result = construct_array(elems, num , INT8OID, sizeof(int64), true, 'i');
                 int64 *dr2 = (int64 *) ARR_DATA_PTR(result);
                 for (i = 0; i < num; i++) {
-                        elog(INFO, "dr2 %d is %d",i,dr2[i]);
+                        elog(INFO, "dr2 %d is %ld",i,dr2[i]);
                 }
                 PG_RETURN_ARRAYTYPE_P(result);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
