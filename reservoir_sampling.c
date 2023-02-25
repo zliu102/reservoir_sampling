@@ -179,7 +179,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 }
                 int nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
                 result = (ArrayType *) palloc0(nbytes);
-                CopyArrayEls(result, elems, NULL, num, sizeof(int64), true, 'd', true)
+                CopyArrayEls(result, elems, NULL, num, sizeof(int64), true, 'd', true);
                 
                 result = construct_array(elems, num , INT8OID, sizeof(int64), true, 'i');
                 if (ARR_NDIM(result) != 1 || ARR_HASNULL(result) || ARR_ELEMTYPE(result) != INT8OID){
