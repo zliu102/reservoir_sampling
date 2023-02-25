@@ -191,7 +191,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                     elog(INFO, "yes3");
                 }
                 if (result && ARR_ELEMTYPE(result) == INT8OID) {
-                        // result is an array of int8 values
+                    elog(INFO, "yes4");
                 }
                 
                 PG_RETURN_ARRAYTYPE_P(result);
