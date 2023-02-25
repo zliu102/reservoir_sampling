@@ -182,7 +182,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 int64 *dr2 = (int64 *) ARR_DATA_PTR(result);
                 for (i = 0; i < num; i++) {
                         elog(INFO, "dr2 %d is %d",i,dr2[i]);
-                     
+                }
                 PG_RETURN_ARRAYTYPE_P(result);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
