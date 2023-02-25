@@ -66,21 +66,11 @@ Datum
 res_trans_crimes_c(PG_FUNCTION_ARGS)
 {
 
-        //state_c *d1 = malloc(sizeof(state_c));
-        //struct state_c st;
-    //  st = (state_c *)PG_GETARG_DATUM(0);
     bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
 
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c));
-    //state_c **pp2 = &s; 
-    //s->reservoir = MyNew_intArrayType(100);
-    //s->poscnt = 2;
-    //s->reservoir_size = 4;
-    elog(INFO, "1");
-    //state_c **pp2 = &s;
-        //int len = sizeof(struct state_c);
-    //if(PG_ARGISNULL(0)) {
+    if(PG_ARGISNULL(0)) {
                 elog(INFO, "2");
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
@@ -99,20 +89,18 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
                 //sprintf(VARDATA(addr), "%p", (void*) st0);
                 
 
-    //}
+    }
         //todo
         //sprintf((void*) s, "%p", VARDATA(addr));
         //sscanf(addr->vl_dat, "%p", (void**)&s); 
         //sscanf(VARDATA(addr), "%p", (void**) &s); 
-        elog(INFO, "3");
         //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
         //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
-        void **new_ptr = (void **) VARDATA(addr);
         //state_c *new_s= (state_c *) (*new_ptr);
+        elog(INFO, "3");
+        void **new_ptr = (void **) VARDATA(addr);
+        
         s= (state_c *) (*new_ptr);
-        //elog(INFO, "st0 is %p",new_s);
-        //elog(INFO, "addr is %p",VARDATA(addr));
-        //elog(INFO, "new_s is %p",new_s);
         elog(INFO, "s is %p",s);
         elog(INFO, "s poscnt is %d,reservoir_size is %d",s->poscnt,s->reservoir_size);
         
@@ -180,7 +168,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 result = (ArrayType *) palloc0(nbytes);
                 //CopyArrayEls(result, elems, NULL, num, sizeof(int64), true, 'd', true);
                 
-                result = construct_array(elems, num , INT8OID, sizeof(int64), true, 'i');
+                result = construct_array((Datum *)elems, num , INT4OID, sizeof(int32), true, 'i');
                 if (ARR_NDIM(result) != 1 ){
                      elog(INFO, "yes1");
                  }
