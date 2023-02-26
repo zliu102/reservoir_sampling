@@ -71,57 +71,38 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c));
-    //if(PG_ARGISNULL(0)) {
     if(!initialized){
-                //elog(INFO, "2");
                 state_c *st0 = palloc0 (sizeof(state_c));
                 ArrayType *a = MyNew_intArrayType(100);
-                //addr = palloc0 (sizeof(bytea));
-                //state_c **pp = &st0; 
                 addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
-                //memcpy(addr->vl_dat,pp,sizeof(st0));
-                //memcpy(VARDATA(addr),pp,sizeof(st0));
                 SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
             
                st0->poscnt = 1;
                st0->reservoir_size = 3;
                st0->reservoir = a;
                memcpy(VARDATA(addr), &st0, sizeof(void *));
-                //sprintf(addr->vl_dat, "%p", (void*) st0);
-                //sprintf(VARDATA(addr), "%p", (void*) st0);
                initialized = true;
 
     }
-        //todo
-        //sprintf((void*) s, "%p", VARDATA(addr));
-        //sscanf(addr->vl_dat, "%p", (void**)&s); 
-        //sscanf(VARDATA(addr), "%p", (void**) &s); 
-        //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
-        //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
-        //state_c *new_s= (state_c *) (*new_ptr);
         void **new_ptr = (void **) VARDATA(addr);
         
         s= (state_c *) (*new_ptr);
-//       elog(INFO, "s is %p",s);
         elog(INFO, "s poscnt is %d,reservoir_size is %d",s->poscnt,s->reservoir_size);
         if(s->poscnt <= s->reservoir_size){
             elog(INFO, "case 1");
             int32 p = s->poscnt;
-            //elog(INFO, "p is %d",p);
             int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
             dr[p-1] = newsample;
             elog(INFO, "newsample is %ld",newsample);
             s->poscnt ++;
-            //elog(INFO, "poscnt is %d",s->poscnt);
         }else{
             elog(INFO, "case 2");
             int32 pos = rand() % s->poscnt ;
             elog(INFO, "pos is %d",pos);//0 - postcnt -1
             elog(INFO, "newsample is %ld",newsample); 
             if(pos < s->reservoir_size){
-                        int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
-
-                        dr[pos] = newsample;
+                int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
+                dr[pos] = newsample;
             }
             s->poscnt ++;
         }
@@ -144,17 +125,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 void **new_ptr = (void **) VARDATA(addr);
                 st= (state_c *) (*new_ptr);
-                elog(INFO, "st is %p",st);
-                elog(INFO, "st poscnt is %d,reservoir_size is %d",st->poscnt,st->reservoir_size);
-        
-                //st->reservoir = MyNew_intArrayType(100);
-                //state_c **pp2 = &st; 
-                //memcpy(pp2,addr->vl_dat,sizeof(*pp2));
-                //memcpy(pp2,VARDATA(addr),sizeof(*pp2));
-                //int len = sizeof(struct state_c);
-                //memcpy(st, (state_c *)((uintptr_t) *(addr->vl_dat)), 100);
-                //sscanf(addr->vl_dat, "%p", (void**)&st); 
-                //sscanf(VARDATA(addr), "%p", (void**)&st);
+                //elog(INFO, "st is %p",st);
+                //elog(INFO, "st poscnt is %d,reservoir_size is %d",st->poscnt,st->reservoir_size);
                 num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
