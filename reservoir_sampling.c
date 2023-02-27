@@ -92,6 +92,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     }
         void **new_ptr = (void **) VARDATA(addr);
         s= (state_c *) (*new_ptr);
+        elog(INFO, "s is %p",s);
     elog(INFO, "initialized2 is %d",initialized);
         elog(INFO, "s poscnt is %d,reservoir_size is %d",s->poscnt,s->reservoir_size);
         if(s->poscnt <= s->reservoir_size){
