@@ -83,7 +83,8 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         elog(INFO, "cmp is %p",cmp);
     }
     if (cmp == addr){
-            state_c *st0 = palloc0 (sizeof(state_c));   
+            state_c *st0 = palloc0 (sizeof(state_c));
+            elog(INFO, "st0 is %p",st0);   
             addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
             SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));      
             st0->poscnt = 1;
