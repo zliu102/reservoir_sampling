@@ -82,7 +82,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         elog(INFO, "cmp != addr");
         elog(INFO, "cmp is %p",cmp);
     }
-    if(!initialized){
+    if (cmp == addr){
             state_c *st0 = palloc0 (sizeof(state_c));   
             addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
             SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));      
@@ -95,9 +95,6 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 
     }
         
-        elog(INFO, "copy addr to cmp");
-        elog(INFO, "cmp is %p",cmp);
-        elog(INFO, "addr is %p",addr);
         void **new_ptr = (void **) VARDATA(addr);
         s= (state_c *) (*new_ptr);
         elog(INFO, "s is %p",s);
