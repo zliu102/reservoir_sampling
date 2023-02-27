@@ -73,12 +73,13 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     state_c *s = palloc0 (sizeof(state_c));
     if(!initialized){
                 state_c *st0 = palloc0 (sizeof(state_c));
-                ArrayType *a = MyNew_intArrayType(100);
+                
                 addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
                 SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
             
                st0->poscnt = 1;
                st0->reservoir_size = 3;
+               ArrayType *a = MyNew_intArrayType(st0->reservoir_size);
                st0->reservoir = a;
                memcpy(VARDATA(addr), &st0, sizeof(void *));
                initialized = true;
@@ -98,8 +99,8 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         }else{
             //elog(INFO, "case 2");
             int32 pos = rand() % s->poscnt ;
-            elog(INFO, "pos is %d",pos);//0 - postcnt -1
-            elog(INFO, "newsample is %ld",newsample); 
+            //elog(INFO, "pos is %d",pos);//0 - postcnt -1
+            //elog(INFO, "newsample is %ld",newsample); 
             if(pos < s->reservoir_size){
                 int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
                 dr[pos] = newsample;
@@ -115,11 +116,11 @@ Datum
 finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 {               
 
-                ArrayType *result;
-                Datum *elems;
-                int i;
-                int num;
-                int64 *dr;
+                //ArrayType *result;
+                //Datum *elems;
+                //int i;
+                //int num;
+                //int64 *dr;
 
                 state_c *st = palloc0 (sizeof(state_c));
                 bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
@@ -127,10 +128,10 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 st= (state_c *) (*new_ptr);
                 //elog(INFO, "st is %p",st);
                 //elog(INFO, "st poscnt is %d,reservoir_size is %d",st->poscnt,st->reservoir_size);
-                num = st->reservoir_size;
-                dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
+                //num = st->reservoir_size;
+                //dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
-                elems = (Datum *)palloc(num * sizeof(Datum));
+                /*elems = (Datum *)palloc(num * sizeof(Datum));
                 
                 for (i = 0; i < num; i++) {
                         elems[i] = Int64GetDatum(dr[i]); 
@@ -141,7 +142,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 result = (ArrayType *) palloc0(nbytes);
                 
                 result = construct_array((Datum *)elems, num , INT8OID, sizeof(int64), true, 'i');
-                /*if (ARR_NDIM(result) != 1 ){
+                if (ARR_NDIM(result) != 1 ){
                      elog(INFO, "yes1");
                  }
                 if (ARR_HASNULL(result)) {
