@@ -154,11 +154,9 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 if (result && ARR_ELEMTYPE(result) == INT8OID) {
                     elog(INFO, "yes4");
                 }*/
-                pfree(st);
+       
                 pfree(addr);
-                pfree(new_ptr);
-                pfree(dr);
-                pfree(elems);
+                
                 PG_RETURN_ARRAYTYPE_P(result);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
