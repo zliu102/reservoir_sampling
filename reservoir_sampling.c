@@ -47,6 +47,7 @@ typedef struct state_c
 
 static ArrayType *MyNew_intArrayType(int num);
 static bool initialized = false;
+static bytea *cmp;
 //static Datum charToInt(const char *addr);
 //static void intToChar(unsigned int hex, char* str)
 
@@ -66,7 +67,7 @@ PG_FUNCTION_INFO_V1(res_trans_crimes_c);
 Datum
 res_trans_crimes_c(PG_FUNCTION_ARGS)
 {
-    bytea  *cmp;
+    
     bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
     elog(INFO, "addr is %p",addr);
     int64 newsample = PG_GETARG_INT64(1);
