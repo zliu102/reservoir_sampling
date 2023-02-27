@@ -72,7 +72,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     elog(INFO, "addr is %p",addr);
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c));
-
+    cmp=addr;
     if (cmp == addr) {
         elog(INFO, "cmp == addr");
         elog(INFO, "cmp is %p",cmp);
@@ -81,8 +81,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         elog(INFO, "cmp is %p",cmp);
     }
     if(!initialized){
-            state_c *st0 = palloc0 (sizeof(state_c));
-                
+            state_c *st0 = palloc0 (sizeof(state_c));   
             addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
             SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));      
             st0->poscnt = 1;
@@ -93,7 +92,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             initialized = true;
 
     }
-        cmp = addr;
+        
         elog(INFO, "copy addr to cmp");
         elog(INFO, "cmp is %p",cmp);
         elog(INFO, "addr is %p",addr);
