@@ -136,7 +136,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 void **new_ptr = (void **) VARDATA(addr);
                 st= (state_c *) (*new_ptr);
-                //elog(INFO, "st is %p",st);
+                elog(INFO, "st is %p",st);
                 elog(INFO, "st poscnt is %d,reservoir_size is %d",st->poscnt,st->reservoir_size);
                 num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
@@ -164,7 +164,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 if (result && ARR_ELEMTYPE(result) == INT8OID) {
                     elog(INFO, "yes4");
                 }*/
-                pfree(st);
+               
                 pfree(addr);
                 initialized = false;
                 elog(INFO, "before retrun initialized is %d",initialized);
