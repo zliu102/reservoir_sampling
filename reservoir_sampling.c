@@ -90,17 +90,17 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         s= (state_c *) (*new_ptr);
         //elog(INFO, "s poscnt is %d,reservoir_size is %d",s->poscnt,s->reservoir_size);
         if(s->poscnt <= s->reservoir_size){
-            //elog(INFO, "case 1");
+            elog(INFO, "case 1");
             int32 p = s->poscnt;
             int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
             dr[p-1] = newsample;
-            //elog(INFO, "newsample is %ld",newsample);
+            elog(INFO, "newsample is %ld",newsample);
             s->poscnt ++;
         }else{
             //elog(INFO, "case 2");
             int32 pos = rand() % s->poscnt ;
-            //elog(INFO, "pos is %d",pos);//0 - postcnt -1
-            //elog(INFO, "newsample is %ld",newsample); 
+            elog(INFO, "pos is %d",pos);//0 - postcnt -1
+            elog(INFO, "newsample is %ld",newsample); 
             if(pos < s->reservoir_size){
                 int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
                 dr[pos] = newsample;
@@ -116,11 +116,11 @@ Datum
 finalize_trans_crimes_c(PG_FUNCTION_ARGS)
 {               
 
-                //ArrayType *result;
-                //Datum *elems;
-                //int i;
-                //int num;
-                //int64 *dr;
+                ArrayType *result;
+                Datum *elems;
+                int i;
+                int num;
+                int64 *dr;
 
                 state_c *st = palloc0 (sizeof(state_c));
                 bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
@@ -128,10 +128,10 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 st= (state_c *) (*new_ptr);
                 //elog(INFO, "st is %p",st);
                 //elog(INFO, "st poscnt is %d,reservoir_size is %d",st->poscnt,st->reservoir_size);
-                //num = st->reservoir_size;
-                //dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
+                num = st->reservoir_size;
+                dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
-                /*elems = (Datum *)palloc(num * sizeof(Datum));
+                elems = (Datum *)palloc(num * sizeof(Datum));
                 
                 for (i = 0; i < num; i++) {
                         elems[i] = Int64GetDatum(dr[i]); 
@@ -153,7 +153,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 }
                 if (result && ARR_ELEMTYPE(result) == INT8OID) {
                     elog(INFO, "yes4");
-                }*/
+                }
                 //pfree(st);
                 pfree(addr);
                 //PG_RETURN_ARRAYTYPE_P(result);
