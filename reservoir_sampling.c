@@ -79,7 +79,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             
                st0->poscnt = 1;
                st0->reservoir_size = 3;
-               ArrayType *a = MyNew_intArrayType(3);
+               ArrayType *a = MyNew_intArrayType(st0->reservoir_size);
                st0->reservoir = a;
                memcpy(VARDATA(addr), &st0, sizeof(void *));
                initialized = true;
@@ -90,17 +90,17 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         s= (state_c *) (*new_ptr);
         //elog(INFO, "s poscnt is %d,reservoir_size is %d",s->poscnt,s->reservoir_size);
         if(s->poscnt <= s->reservoir_size){
-            elog(INFO, "case 1");
+            //elog(INFO, "case 1");
             int32 p = s->poscnt;
             int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
             dr[p-1] = newsample;
-            elog(INFO, "newsample is %ld",newsample);
+            //elog(INFO, "newsample is %ld",newsample);
             s->poscnt ++;
         }else{
-            elog(INFO, "case 2");
+            //elog(INFO, "case 2");
             int32 pos = rand() % s->poscnt ;
-            elog(INFO, "pos is %d",pos);//0 - postcnt -1
-            elog(INFO, "newsample is %ld",newsample); 
+            //elog(INFO, "pos is %d",pos);//0 - postcnt -1
+            //elog(INFO, "newsample is %ld",newsample); 
             if(pos < s->reservoir_size){
                 int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
                 dr[pos] = newsample;
@@ -135,14 +135,14 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 
                 for (i = 0; i < num; i++) {
                         elems[i] = Int64GetDatum(dr[i]); 
-                        elog(INFO, "dr[%d] is %ld",i,dr[i]);
-                        elog(INFO, "elems[%d] is %ld",i,elems[i]);
+                        //elog(INFO, "dr[%d] is %ld",i,dr[i]);
+                        //elog(INFO, "elems[%d] is %ld",i,elems[i]);
                 }
                 int nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
                 result = (ArrayType *) palloc0(nbytes);
                 
                 result = construct_array((Datum *)elems, num , INT8OID, sizeof(int64), true, 'i');
-                if (ARR_NDIM(result) != 1 ){
+                /*if (ARR_NDIM(result) != 1 ){
                      elog(INFO, "yes1");
                  }
                 if (ARR_HASNULL(result)) {
@@ -153,9 +153,12 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 }
                 if (result && ARR_ELEMTYPE(result) == INT8OID) {
                     elog(INFO, "yes4");
-                }
-                //pfree(st);
+                }*/
+                pfree(st);
                 pfree(addr);
+                pfree(new_ptr);
+                pfree(dr);
+                pfree(elems);
                 PG_RETURN_ARRAYTYPE_P(result);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
