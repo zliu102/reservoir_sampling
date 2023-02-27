@@ -84,11 +84,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             state_c *st0 = palloc0 (sizeof(state_c));
                 
             addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
-            SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
-            elog(INFO, "copy addr to cmp");
-            cmp = addr;
-            elog(INFO, "cmp is %p",cmp);
-            elog(INFO, "addr is %p",addr);
+            SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));      
             st0->poscnt = 1;
             st0->reservoir_size = 3;
             ArrayType *a = MyNew_intArrayType(3);
@@ -97,6 +93,10 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             initialized = true;
 
     }
+        cmp = addr;
+        elog(INFO, "copy addr to cmp");
+        elog(INFO, "cmp is %p",cmp);
+        elog(INFO, "addr is %p",addr);
         void **new_ptr = (void **) VARDATA(addr);
         s= (state_c *) (*new_ptr);
         elog(INFO, "s is %p",s);
