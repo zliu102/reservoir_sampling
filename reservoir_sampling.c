@@ -71,7 +71,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
     elog(INFO, "addr is %p",addr);
     int64 newsample = PG_GETARG_INT64(1);
-    state_c *s = palloc0 (sizeof(state_c));
+    state_c *s = palloc (sizeof(state_c));
     if(!initialized){
         cmp=addr;
     }
@@ -133,7 +133,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 int num;
                 int64 *dr;
 
-                state_c *st = palloc0 (sizeof(state_c));
+                state_c *st = palloc (sizeof(state_c));
                 bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
                 void **new_ptr = (void **) VARDATA(addr);
                 st= (state_c *) (*new_ptr);
