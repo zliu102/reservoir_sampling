@@ -138,8 +138,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                         elog(INFO, "dr[%d] is %ld",i,dr[i]);
                         elog(INFO, "elems[%d] is %ld",i,elems[i]);
                 }
-                int nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
-                result = (ArrayType *) palloc0(nbytes);
+                //int nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
+                //result = (ArrayType *) palloc0(nbytes);
                 
                 result = construct_array((Datum *)elems, num , INT8OID, sizeof(int64), true, 'i');
                 /*if (ARR_NDIM(result) != 1 ){
@@ -156,7 +156,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 }*/
        
                 pfree(addr);
-                
+                initialized = false;
                 PG_RETURN_ARRAYTYPE_P(result);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
