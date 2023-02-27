@@ -88,19 +88,19 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         void **new_ptr = (void **) VARDATA(addr);
         
         s= (state_c *) (*new_ptr);
-        //elog(INFO, "s poscnt is %d,reservoir_size is %d",s->poscnt,s->reservoir_size);
+        elog(INFO, "s poscnt is %d,reservoir_size is %d",s->poscnt,s->reservoir_size);
         if(s->poscnt <= s->reservoir_size){
-            //elog(INFO, "case 1");
+            elog(INFO, "case 1");
             int32 p = s->poscnt;
             int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
             dr[p-1] = newsample;
-            //elog(INFO, "newsample is %ld",newsample);
+            elog(INFO, "newsample is %ld",newsample);
             s->poscnt ++;
         }else{
-            //elog(INFO, "case 2");
+            elog(INFO, "case 2");
             int32 pos = rand() % s->poscnt ;
-            //elog(INFO, "pos is %d",pos);//0 - postcnt -1
-            //elog(INFO, "newsample is %ld",newsample); 
+            elog(INFO, "pos is %d",pos);//0 - postcnt -1
+            elog(INFO, "newsample is %ld",newsample); 
             if(pos < s->reservoir_size){
                 int64 *dr = (int64 *) ARR_DATA_PTR(s->reservoir);
                 dr[pos] = newsample;
@@ -127,7 +127,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 void **new_ptr = (void **) VARDATA(addr);
                 st= (state_c *) (*new_ptr);
                 //elog(INFO, "st is %p",st);
-                //elog(INFO, "st poscnt is %d,reservoir_size is %d",st->poscnt,st->reservoir_size);
+                elog(INFO, "st poscnt is %d,reservoir_size is %d",st->poscnt,st->reservoir_size);
                 num = st->reservoir_size;
                 dr = (int64 *) ARR_DATA_PTR(st->reservoir); 
                 
@@ -135,8 +135,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 
                 for (i = 0; i < num; i++) {
                         elems[i] = Int64GetDatum(dr[i]); 
-                        //elog(INFO, "dr[%d] is %ld",i,dr[i]);
-                        //elog(INFO, "elems[%d] is %ld",i,elems[i]);
+                        elog(INFO, "dr[%d] is %ld",i,dr[i]);
+                        elog(INFO, "elems[%d] is %ld",i,elems[i]);
                 }
                 int nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
                 result = (ArrayType *) palloc0(nbytes);
