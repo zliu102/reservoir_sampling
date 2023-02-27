@@ -119,7 +119,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             s->poscnt ++;
         }
         elog(INFO, "----------------"); 
-        pfree(s);
+        //pfree(s);
         PG_RETURN_BYTEA_P(addr);
 }
 
@@ -167,7 +167,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                     elog(INFO, "yes4");
                 }*/
                
-                pfree(addr);
+                //pfree(addr);
                 initialized = false;
                 elog(INFO, "before retrun initialized is %d",initialized);
                 PG_RETURN_ARRAYTYPE_P(result);
