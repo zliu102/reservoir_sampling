@@ -119,7 +119,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             s->poscnt ++;
         }
         elog(INFO, "----------------"); 
-        //pfree(s);
+        pfree(s);
         PG_RETURN_BYTEA_P(addr);
 }
 
