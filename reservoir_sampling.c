@@ -68,7 +68,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 {
 
     bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
-
+    elog(INFO, "addr is %p",addr);
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c));
     elog(INFO, "0 PG_ARGISNULL is %d",PG_ARGISNULL(0));
