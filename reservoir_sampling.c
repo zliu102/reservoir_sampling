@@ -75,8 +75,10 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 
     if (cmp == addr) {
         elog(INFO, "cmp == addr");
+        elog(INFO, "cmp is %p",addr);
     } else {
         elog(INFO, "cmp != addr");
+         elog(INFO, "cmp is %p",addr);
     }
     if(!initialized){
                 state_c *st0 = palloc0 (sizeof(state_c));
