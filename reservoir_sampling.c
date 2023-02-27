@@ -75,17 +75,17 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 
     if (cmp == addr) {
         elog(INFO, "cmp == addr");
-        elog(INFO, "cmp is %p",addr);
+        elog(INFO, "cmp is %p",cmp);
     } else {
         elog(INFO, "cmp != addr");
-         elog(INFO, "cmp is %p",addr);
+        elog(INFO, "cmp is %p",cmp);
     }
     if(!initialized){
                 state_c *st0 = palloc0 (sizeof(state_c));
                 
                 addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
                 SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
-                cmp = addr;
+               cmp = addr;
                st0->poscnt = 1;
                st0->reservoir_size = 3;
                ArrayType *a = MyNew_intArrayType(3);
