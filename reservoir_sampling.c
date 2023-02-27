@@ -72,7 +72,9 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
     elog(INFO, "addr is %p",addr);
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c));
-    cmp=addr;
+    if(!initialized){
+        cmp=addr;
+    }
     if (cmp == addr) {
         elog(INFO, "cmp == addr");
         elog(INFO, "cmp is %p",cmp);
