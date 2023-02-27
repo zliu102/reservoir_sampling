@@ -81,17 +81,20 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         elog(INFO, "cmp is %p",cmp);
     }
     if(!initialized){
-                state_c *st0 = palloc0 (sizeof(state_c));
+            state_c *st0 = palloc0 (sizeof(state_c));
                 
-                addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
-                SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
-               cmp = addr;
-               st0->poscnt = 1;
-               st0->reservoir_size = 3;
-               ArrayType *a = MyNew_intArrayType(3);
-               st0->reservoir = a;
-               memcpy(VARDATA(addr), &st0, sizeof(void *));
-               initialized = true;
+            addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
+            SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
+            elog(INFO, "copy addr to cmp");
+            cmp = addr;
+            elog(INFO, "cmp is %p",cmp);
+            elog(INFO, "addr is %p",addr);
+            st0->poscnt = 1;
+            st0->reservoir_size = 3;
+            ArrayType *a = MyNew_intArrayType(3);
+            st0->reservoir = a;
+            memcpy(VARDATA(addr), &st0, sizeof(void *));
+            initialized = true;
 
     }
         void **new_ptr = (void **) VARDATA(addr);
