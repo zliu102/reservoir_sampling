@@ -79,7 +79,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             
                st0->poscnt = 1;
                st0->reservoir_size = 3;
-               ArrayType *a = MyNew_intArrayType((st0->reservoir_size)+1);
+               ArrayType *a = MyNew_intArrayType(3);
                st0->reservoir = a;
                memcpy(VARDATA(addr), &st0, sizeof(void *));
                initialized = true;
@@ -97,7 +97,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             elog(INFO, "newsample is %ld",newsample);
             s->poscnt ++;
         }else{
-            //elog(INFO, "case 2");
+            elog(INFO, "case 2");
             int32 pos = rand() % s->poscnt ;
             elog(INFO, "pos is %d",pos);//0 - postcnt -1
             elog(INFO, "newsample is %ld",newsample); 
