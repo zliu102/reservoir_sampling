@@ -135,8 +135,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 
                 for (i = 0; i < num; i++) {
                         elems[i] = Int64GetDatum(dr[i]); 
-                        //elog(INFO, "dr[%d] is %ld",i,dr[i]);
-                        //elog(INFO, "elems[%d] is %ld",i,elems[i]);
+                        elog(INFO, "dr[%d] is %ld",i,dr[i]);
+                        elog(INFO, "elems[%d] is %ld",i,elems[i]);
                 }
                 int nbytes = ARR_OVERHEAD_NONULLS(1) + sizeof(int) * num;
                 result = (ArrayType *) palloc0(nbytes);
@@ -156,8 +156,8 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
                 }
                 //pfree(st);
                 pfree(addr);
-                //PG_RETURN_ARRAYTYPE_P(result);
-                PG_RETURN_ARRAYTYPE_P(st->reservoir); 
+                PG_RETURN_ARRAYTYPE_P(result);
+                //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
 static
 ArrayType *
