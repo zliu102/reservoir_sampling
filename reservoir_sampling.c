@@ -71,6 +71,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c));
+    elog(INFO, "initialized1 is %s",initialized);
     if(!initialized){
                 state_c *st0 = palloc0 (sizeof(state_c));
                 
@@ -86,8 +87,8 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 
     }
         void **new_ptr = (void **) VARDATA(addr);
-        
         s= (state_c *) (*new_ptr);
+    elog(INFO, "initialized2 is %s",initialized);
         elog(INFO, "s poscnt is %d,reservoir_size is %d",s->poscnt,s->reservoir_size);
         if(s->poscnt <= s->reservoir_size){
             elog(INFO, "case 1");
@@ -157,6 +158,7 @@ finalize_trans_crimes_c(PG_FUNCTION_ARGS)
        
                 pfree(addr);
                 initialized = false;
+                elog(INFO, "before retrun initialized is %s",initialized);
                 PG_RETURN_ARRAYTYPE_P(result);
                 //PG_RETURN_ARRAYTYPE_P(st->reservoir); 
 }
