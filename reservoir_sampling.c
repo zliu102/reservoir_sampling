@@ -66,22 +66,23 @@ PG_FUNCTION_INFO_V1(res_trans_crimes_c);
 Datum
 res_trans_crimes_c(PG_FUNCTION_ARGS)
 {
-
+    bytea  *cmp;
     bytea  *addr = (bytea *) PG_GETARG_BYTEA_P(0);
     elog(INFO, "addr is %p",addr);
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c));
-    elog(INFO, "0 PG_ARGISNULL is %d",PG_ARGISNULL(0));
-    if (PG_ARGISNULL(0)){
-        elog(INFO, "PG_ARGISNULL is %d",PG_ARGISNULL(0));
+
+    if (cmp == addr {
+        elog(INFO, "cmp == addr");
+    } elese {
+        elog(INFO, "cmp != addr");
     }
-    elog(INFO, "initialized1 is %d",initialized);
     if(!initialized){
                 state_c *st0 = palloc0 (sizeof(state_c));
                 
                 addr = (bytea *) palloc(sizeof(st0) + sizeof(bytea));
                 SET_VARSIZE(addr,sizeof(st0)+sizeof(bytea));
-            
+                cmp = addr;
                st0->poscnt = 1;
                st0->reservoir_size = 3;
                ArrayType *a = MyNew_intArrayType(3);
@@ -93,7 +94,6 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
         void **new_ptr = (void **) VARDATA(addr);
         s= (state_c *) (*new_ptr);
         elog(INFO, "s is %p",s);
-    elog(INFO, "initialized2 is %d",initialized);
         elog(INFO, "s poscnt is %d,reservoir_size is %d",s->poscnt,s->reservoir_size);
         if(s->poscnt <= s->reservoir_size){
             elog(INFO, "case 1");
