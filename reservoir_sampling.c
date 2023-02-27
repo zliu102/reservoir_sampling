@@ -71,6 +71,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 
     int64 newsample = PG_GETARG_INT64(1);
     state_c *s = palloc0 (sizeof(state_c));
+    elog(INFO, "0 PG_ARGISNULL is %d",PG_ARGISNULL(0));
     if (PG_ARGISNULL(0)){
         elog(INFO, "PG_ARGISNULL is %d",PG_ARGISNULL(0));
     }
