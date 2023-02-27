@@ -74,7 +74,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
 
     if (cmp == addr) {
         elog(INFO, "cmp == addr");
-    } elese {
+    } else {
         elog(INFO, "cmp != addr");
     }
     if(!initialized){
