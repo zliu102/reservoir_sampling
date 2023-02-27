@@ -79,7 +79,7 @@ res_trans_crimes_c(PG_FUNCTION_ARGS)
             
                st0->poscnt = 1;
                st0->reservoir_size = 3;
-               ArrayType *a = MyNew_intArrayType(st0->reservoir_size);
+               ArrayType *a = MyNew_intArrayType(3);
                st0->reservoir = a;
                memcpy(VARDATA(addr), &st0, sizeof(void *));
                initialized = true;
